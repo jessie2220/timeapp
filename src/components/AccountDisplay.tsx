@@ -1,5 +1,6 @@
 //import React from 'react'
-import { readDisplayName, readEmail } from '../functions'
+import { readDisplayName, readEmail, readImageURL, readUID } from '../functions'
+import styled from 'styled-components'
 
 function getFirstName() {
     let name = readDisplayName()
@@ -8,7 +9,17 @@ function getFirstName() {
     return (firstName[0])
 }
 
+const Img = styled.img`
+border-radius: 50%; 
+width: auto;
+height: auto;
+`
+
+
+
+
 const AccountDisplay = () => {
+
     return (
         <>
             <div className="text-black bg-white h-screen">
@@ -19,6 +30,7 @@ const AccountDisplay = () => {
                 <ul>
                     <li>Name: {readDisplayName()}</li>
                     <li>Email: {readEmail()}</li>
+                    <li><Img src={readImageURL()} /></li>
                 </ul>
             </div>
         </>

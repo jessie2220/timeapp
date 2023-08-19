@@ -3,7 +3,7 @@
 
 const Footer = () => (
     <section>
-        <div className='flex justify-center p-20 mx:auto text-center static text-white'>
+        <div className='flex justify-center p-20 mx:auto text-center static text-white bg-[#242424]'>
             <ul>
                 {/* <li><img src={mountain} /></li> */}
                 {/* <li className='bg-blue-400'>This is a footer</li> */}

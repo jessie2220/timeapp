@@ -1,11 +1,10 @@
 //import React, { useEffect } from 'react'
 import Typed from 'react-typed'
 import { getAuth, GoogleAuthProvider, signInWithPopup, signOut, setPersistence, browserSessionPersistence } from 'firebase/auth'
-//import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import styled from 'styled-components'
-
 import { isLoggedIn } from '../functions'
+import { writeUserData } from '../config/config'
 
 // primary-600
 const Button = styled.button`
@@ -17,9 +16,9 @@ margin: 10px 0px;
 cursor: pointer;
 transition:  0.25s;
 border-radius: 8px;
-
 width: 200px
 `;
+
 
 
 export const signOutWithGoogle = async (props: any) => {
@@ -31,6 +30,7 @@ export const signOutWithGoogle = async (props: any) => {
         sessionStorage.removeItem("displayName")
         sessionStorage.removeItem("email")
         sessionStorage.removeItem("storageTest")
+        sessionStorage.removeItem("imageURL")
         props.setLoggedState(false)
     }) .catch((error) => {
         console.log(error)
@@ -58,7 +58,9 @@ const Hero = (props: any) => {
                     sessionStorage.setItem("displayName", response.user.displayName || '')
                     sessionStorage.setItem("email", response.user.email || '')
                     sessionStorage.setItem("storageTest", response.user.uid || '')
-                    //setTest(sessionStorage.getItem("storageTest"))
+                    sessionStorage.setItem("imageURL", response.user.photoURL || '')
+
+                    writeUserData(response.user.uid, response.user.displayName as string, response.user.email as string, response.user.photoURL as string)
                     
                     props.setLoggedState(true)
                     navigate('/')

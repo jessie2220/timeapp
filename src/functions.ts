@@ -1,6 +1,5 @@
 //import React from 'react'
 
-
 export const readDisplayName: () => string | null = () => {
 
     return (sessionStorage.getItem("displayName"))
@@ -11,9 +10,15 @@ export function readEmail() {
     return (sessionStorage.getItem("email"))
 }
 
-export function readTest() {
+export function readUID() {
+    if (sessionStorage.getItem("storageTest") !== null) {
+        return (sessionStorage.getItem("storageTest") as string)
+    }
 
-    return (sessionStorage.getItem("storageTest"))
+}
+
+export function readImageURL(): any {
+    return (sessionStorage.getItem("imageURL"))
 }
 
 

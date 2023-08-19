@@ -2,7 +2,11 @@
 
 const TaskList = () => {
   return (
-    <p className='text-[#7926ff] font-bold p-2 md:text-3xl mt-10 h-screen'>TASK LIST</p>
+    <div className="flex flex-col max-w-[1240px] mx-auto px-8 mt-4">
+      <div>yes</div>
+      <p className='text-[#7926ff] font-bold md:text-3xl h-screen'>TASK LIST</p>
+    </div>
+    
   )
 }
 

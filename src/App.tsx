@@ -32,6 +32,7 @@ const App = () => {
         <div>
           <Navbar setLoggedState={setLoggedState} loggedState={loggedState} />
         </div>
+        {/* <div className='max-w-[1240px] mx-auto px-8 mt-4'> */}
         <div>
           <Routes>
             {/* <Route path='/' element={<Navbar />} /> */}
