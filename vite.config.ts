@@ -17,7 +17,7 @@ export default defineConfig({
       manifest: {
         name: 'React Time App',
         short_name: 'MyApp',
-        description: 'App description',
+        description: 'Timeapp description',
         theme_color: '#ffffff',
         icons: [
           {

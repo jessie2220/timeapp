@@ -2,7 +2,10 @@
 
 const AnalyticsDisplay = () => {
   return (
-    <div className="h-screen">AnalyticsDisplay</div>
+    <div>
+      <div>AnalyticsDisplay</div>
+      <div className="h-screen"></div>
+    </div>
   )
 }
 

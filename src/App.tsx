@@ -5,14 +5,18 @@ import Navbar from './components/Navbar'
 import Account from './pages/Account'
 import Home from './pages/Home'
 import NoPage from './pages/NoPage'
-import { initializeApp } from 'firebase/app'
-import { config } from './config/config'
+// import { initializeApp } from 'firebase/app'
+// import { config } from './config/config'
 import Footer from './components/Footer'
 import Analytics from './pages/Analytics'
 import Focus from './pages/Focus'
 import { isLoggedIn } from './functions'
+// import { getFirestore } from "firebase/firestore"
 
-initializeApp(config.firebaseConfig);
+
+// const app = initializeApp(config.firebaseConfig);
+// export const firestoreDB = getFirestore(app)
+
 
 const App = () => {
 
@@ -20,9 +24,9 @@ const App = () => {
 
   function test2() {
     if (!loggedState) {
-      return ('bg-landing-background')
+      return ("bg-[url('./assets/mountain-bg.jpg')] bg-cover bg-right-top lg:bg-left-top")
     } else {
-      return ('bg-default-background')
+      return ("bg-[url('./assets/mountain-bg2.jpg')] bg-cover bg-top")
     }
   }
 

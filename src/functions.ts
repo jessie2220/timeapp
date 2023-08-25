@@ -11,14 +11,17 @@ export function readEmail() {
 }
 
 export function readUID() {
-    if (sessionStorage.getItem("storageTest") !== null) {
-        return (sessionStorage.getItem("storageTest") as string)
-    }
+
+    return (sessionStorage.getItem("uid"))
 
 }
 
 export function readImageURL(): any {
     return (sessionStorage.getItem("imageURL"))
+}
+
+export function readTaskAmount(): any {
+    return (sessionStorage.getItem("taskAmount"))
 }
 
 

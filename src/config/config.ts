@@ -1,39 +1,65 @@
-export const config = {
-    firebaseConfig: {
-        apiKey: "AIzaSyDh7BsQz-IRqEWuNuD4WEOoynHyP4gwx0o",
-        authDomain: "time-app2.firebaseapp.com",
-        projectId: "time-app2",
-        storageBucket: "time-app2.appspot.com",
-        messagingSenderId: "982446485650",
-        appId: "1:982446485650:web:9c4d5cba032d79c562364b",
-        databaseURL: "https://time-app2-default-rtdb.asia-southeast1.firebasedatabase.app/"
-    }
+// export const config = {
+//     firebaseConfig: {
+//         apiKey: "AIzaSyDh7BsQz-IRqEWuNuD4WEOoynHyP4gwx0o",
+//         authDomain: "time-app2.firebaseapp.com",
+//         projectId: "time-app2",
+//         storageBucket: "time-app2.appspot.com",
+//         messagingSenderId: "982446485650",
+//         appId: "1:982446485650:web:9c4d5cba032d79c562364b",
+//         databaseURL: "https://time-app2-default-rtdb.asia-southeast1.firebasedatabase.app/"
+//     }
+// }
+
+import { initializeApp } from 'firebase/app';
+import { getFirestore } from 'firebase/firestore';
+
+
+const firebaseConfig = {
+    apiKey: "AIzaSyDh7BsQz-IRqEWuNuD4WEOoynHyP4gwx0o",
+    authDomain: "time-app2.firebaseapp.com",
+    projectId: "time-app2",
+    storageBucket: "time-app2.appspot.com",
+    messagingSenderId: "982446485650",
+    appId: "1:982446485650:web:9c4d5cba032d79c562364b",
+    databaseURL: "https://time-app2-default-rtdb.asia-southeast1.firebasedatabase.app/"
 }
+
+
+const app = initializeApp(firebaseConfig);
+export const firestoreDB = getFirestore(app)
 
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-import { getDatabase, onValue, ref, set } from 'firebase/database'
+import { get, getDatabase, onValue, ref, set } from 'firebase/database'
+
+
+const db = getDatabase()
 
 
 export function writeUserData(uid: string, name: string, email: string, imageURL: string) {
-    const db = getDatabase()
     const reference = ref(db, 'users/' + uid)
 
-    set(reference, {
-        name: name,
-        email: email,
-        image: imageURL
+    const taskAmountCheck = ref(db, 'users/' + uid + '/taskAmount')
+    onValue(taskAmountCheck, (snapshot) => {
+        const data = snapshot.val()
+        if (data == null) {
+            set(reference, {
+                name: name,
+                email: email,
+                image: imageURL,
+                taskAmount: 0,
+            })
+        }
     })
 }
 
 
 export function getNameFromDatabase(uid: any) {
-    const db = getDatabase()
-    const databaseName = ref(db, 'users/' + uid + '/name')
+    const reference = ref(db, 'users/' + uid + '/name')
     let data
 
-    if (databaseName !== null) {
-        onValue(databaseName, (snapshot) => {
+    if (reference !== null) {
+        onValue(reference, (snapshot) => {
             data = snapshot.val()
             return (data)
         })
@@ -44,12 +70,11 @@ export function getNameFromDatabase(uid: any) {
 }
 
 
-export function getEmailFromDatabase(uid: any):string | undefined {
-    const db = getDatabase()
-    const databaseName = ref(db, 'users/' + uid + '/email')
+export function getEmailFromDatabase(uid: any) {
+    const reference = ref(db, 'users/' + uid + '/email')
     let data
 
-    onValue(databaseName, (snapshot) => {
+    onValue(reference, (snapshot) => {
         data = snapshot.val()
     })
 
@@ -58,13 +83,33 @@ export function getEmailFromDatabase(uid: any):string | undefined {
 
 
 export function getImageFromDatabase(uid: any):string | undefined {
-    const db = getDatabase()
-    const databaseName = ref(db, 'users/' + uid + '/image')
+    const reference = ref(db, 'users/' + uid + '/image')
     let data
 
-    onValue(databaseName, (snapshot) => {
+    onValue(reference, (snapshot) => {
         data = snapshot.val()
     })
 
     return (data)
+}
+
+export function getTaskAmountFromDatabase(uid: any): string {
+    const reference = ref(db, 'users/' + uid + '/taskAmount')
+    var data
+    onValue(reference, (snapshot) => {
+        data = snapshot.val()
+        console.log("should be 0      ", data)
+    })
+
+    return (data!)
+
+}
+
+export async function test() {
+    const reference = ref(db, 'users/' + sessionStorage.getItem("uid") + '/taskAmount')
+
+    const snapshot = await get(reference)
+
+    return(snapshot.val())
+
 }

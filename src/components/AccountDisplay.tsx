@@ -1,5 +1,5 @@
 //import React from 'react'
-import { readDisplayName, readEmail, readImageURL, readUID } from '../functions'
+import { readDisplayName, readEmail, readImageURL } from '../functions'
 import styled from 'styled-components'
 
 function getFirstName() {
