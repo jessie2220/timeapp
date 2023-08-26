@@ -25,14 +25,6 @@ width: 400px;
 height: auto;
 `
 
-const time = 0
-
-function displayTime() {
-    if (time == 0) {
-        return ("00:00")
-    }
-}
-
 
 const FocusMode = () => {
     const [value, setValue] = useState(0)
@@ -57,7 +49,6 @@ const FocusMode = () => {
                 <div className="flex justify-center p-20 mx:auto text-center">
                     <ul>
                         <li>
-                            insert picture
                             <Img src={mountain} />
                         </li>
                         <br />
@@ -70,7 +61,7 @@ const FocusMode = () => {
                     </ul>
 
                 </div>
-                <li>Set time ___</li>
+                <li>Set time example</li>
                 <li className="bg-white bg-opacity-40 mx-80">
                     <Flex w={'90%'} color={"black"}>
                         <NumberInput maxW='100px' mr='2rem' value={value} onChange={handleChange} max={90}>
@@ -94,8 +85,8 @@ const FocusMode = () => {
                         </Slider>
                     </Flex>
                 </li>
-                <li className="text-xl">{displayTime()}</li>
-                <li><Button className="hover:bg-green-200" onClick={() => circle()}>Click to change cirle</Button></li>
+                <li className="text-xl">{value}</li>
+                <li><Button className="hover:bg-green-200" onClick={() => circle()}>Click to change circle</Button></li>
             </ul>
         </div>
     )

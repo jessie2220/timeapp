@@ -5,6 +5,7 @@ import { getAuth, GoogleAuthProvider, signInWithPopup, signOut, setPersistence, 
 import styled from 'styled-components'
 import { isLoggedIn } from '../functions'
 import { writeUserData, test } from '../config/config'
+import { useNavigate } from 'react-router-dom'
 
 // primary-600
 const Button = styled.button`
@@ -42,7 +43,7 @@ export const signOutWithGoogle = async (props: any) => {
 export const signInWithGoogle = async (props:any) => {
     
     const auth = getAuth()
-    //const navigate = useNavigate()
+    // const navigate = useNavigate()
 
     setPersistence(auth, browserSessionPersistence).then(() => {
         return(signInWithPopup(auth, new GoogleAuthProvider())
@@ -58,10 +59,10 @@ export const signInWithGoogle = async (props:any) => {
 
             writeUserData(response.user.uid, response.user.displayName as string, response.user.email as string, response.user.photoURL as string)
 
-            sessionStorage.setItem("taskAmount", await test())
+            // sessionStorage.setItem("taskAmount", await test())
             
             props.setLoggedState(true)
-            //navigate('/')
+            // navigate('/')
         })
         .catch(error => {
             console.log(error)

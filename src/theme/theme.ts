@@ -6,9 +6,9 @@ const styles = {
         body: {
             // sets a custom bg color for dark mode only
             bg: mode(
-                // light mode value retrieved from theme
+                // light mode value from theme
                 props.theme.semanticTokens.colors['chakra-body-bg']._light,
-                // your custom value for dark mode
+                // value for dark mode
                 'black',
             )(props),
         },

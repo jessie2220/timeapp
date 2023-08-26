@@ -16,11 +16,19 @@ import {
     DrawerContent,
     DrawerBody,
     VStack,
+    Menu,
+    MenuButton,
+    Avatar,
+    MenuList,
+    Center,
+    MenuDivider,
+    MenuItem,
 } from '@chakra-ui/react'
 import { CloseIcon, HamburgerIcon, MoonIcon, SunIcon } from '@chakra-ui/icons'
 import { GrGoogle } from 'react-icons/Gr'
 import { PiMountainsFill } from 'react-icons/Pi'
 import { signOutWithGoogle } from './Hero'
+import { getFirstName, readImageURL } from '../functions'
 
 // interface Props {
 //   children: React.ReactNode
@@ -34,15 +42,54 @@ const NavLink = (link: any) => {
                 as="a"
                 px={2}
                 py={1}
-                color={useColorModeValue('white', 'black')}
+                color={useColorModeValue('black', 'white')}
                 rounded={'md'}
                 _hover={{
                     textDecoration: 'none',
-                    bg: useColorModeValue('gray.200', 'gray.700'),
+                    bg: useColorModeValue('gray.400', 'gray.200'),
                 }}
                 href={link.address}>
                 {link.children}
             </Box>
+        </>
+    )
+}
+
+const SideBarLink = (link: any) => {
+
+    return (
+        <>
+            <Box
+                as="a"
+                px={2}
+                py={1}
+                color={useColorModeValue('black', 'white')}
+                rounded={'md'}
+                _hover={{
+                    textDecoration: 'none',
+                    bg: useColorModeValue('gray.400', 'gray.400'),
+                }}
+                href={link.address}>
+                {link.children}
+            </Box>
+        </>
+    )
+}
+
+const NewMenuItem = (name:any) => {
+
+    return (
+        <>
+            <MenuItem
+                color={useColorModeValue('black', 'white')}
+                bg={useColorModeValue('white', 'black')}
+                _hover={{
+                    textDecoration: 'none',
+                    bg: useColorModeValue('gray.400', 'gray.400'),
+                }}
+            >
+                {name.children}
+            </MenuItem>
         </>
     )
 }
@@ -60,7 +107,7 @@ const ChakraNavbarLogged = (props: any) => {
     const { isOpen, onOpen, onClose } = useDisclosure()
     return (
         <>
-            <Box bg={useColorModeValue('rgba(255,255,255,0)', 'rgba(255,255,255,0)')} px={4}>
+            <Box bg={useColorModeValue('rgba(255,255,255,0)', 'rgba(0,0,0,0)')} px={4}>
                 <Flex h={16} alignItems={'center'} justifyContent={'space-between'}>
 
 
@@ -86,11 +133,11 @@ const ChakraNavbarLogged = (props: any) => {
                                     </Button>
                                 </DrawerHeader>
                                 <DrawerBody>
-                                    <VStack>
-                                        <p>(not working yet)</p>
-                                        <p>Tasks</p>
-                                        <p>etc...</p>
-                                    </VStack>
+                                    <Stack>
+                                        {Links.map((link: any) => (
+                                            <SideBarLink key={link.name} address={link.address}>{link.name}</SideBarLink>
+                                        ))}
+                                    </Stack>
                                 </DrawerBody>
                             </DrawerContent>
                         </Drawer>
@@ -123,6 +170,38 @@ const ChakraNavbarLogged = (props: any) => {
                             <Button onClick={toggleColorMode}>
                                 {colorMode === 'light' ? <MoonIcon /> : <SunIcon />}
                             </Button>
+
+
+                            <Menu>
+                                <MenuButton
+                                    as={Button}
+                                    rounded={'full'}
+                                    variant={'link'}
+                                    cursor={'pointer'}
+                                    minW={0}>
+                                    <Avatar
+                                        size={'sm'}
+                                        src={readImageURL()}
+                                    />
+                                </MenuButton>
+                                <MenuList alignItems={'center'} bg={useColorModeValue('white', 'black')}>
+                                    <br />
+                                    <Center>
+                                        <Avatar
+                                            size={'2xl'}
+                                            src={readImageURL()}
+                                        />
+                                    </Center>
+                                    <br />
+                                    <Center>
+                                        <p>{getFirstName()}</p>
+                                    </Center>
+                                    <br />
+                                    <MenuDivider />
+                                    <NewMenuItem>Account</NewMenuItem>
+                                    <NewMenuItem>Logout</NewMenuItem>
+                                </MenuList>
+                            </Menu>
                         </Stack>
                     </Flex>
                 </Flex>

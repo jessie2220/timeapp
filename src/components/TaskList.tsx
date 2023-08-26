@@ -1,6 +1,7 @@
 import { CheckIcon, DeleteIcon, EditIcon } from '@chakra-ui/icons'
 import {
-  Alert, AlertDescription, AlertIcon, AlertTitle, Box, Button, Checkbox, CloseButton, Flex, FormControl, IconButton, Input,
+  Alert, AlertDescription, AlertIcon, AlertTitle, Box, Button, Center, Checkbox, CloseButton, Flex, FormControl, IconButton, Input,
+  Progress,
   Select, Tab, TabList,
   TabPanel, TabPanels, Tabs, Text,
 } from '@chakra-ui/react'
@@ -101,8 +102,11 @@ const TaskList = () => {
         /> */}
 
         <div className='text-white flex justify-center text-center mt-4'>
-          <p>XP BAR ------------------------</p>
+          <p>XP BAR</p>
         </div>
+        <Flex color={'red'} w={'100%'} justifyContent={'center'}>
+            <Progress colorScheme='pink' value={20} w={500} hasStripe isAnimated max={100}/>
+        </Flex>
 
         <Flex w='100%' h='100vh'>
           <Flex w='100%' h='100vh' flexDir='column' ml='10%' mt='5%' mr='10%' color='white'>
@@ -150,7 +154,7 @@ const TaskList = () => {
                       // </>
 
                       <>
-                        <Checkbox flexDir={'row'} mb={8} w='100%' colorScheme='green' onChange={(e) => reUpdateTask(index, e.target.checked)} isChecked={task.isChecked}>
+                        <Checkbox flexDir={'row'} mb={8} w='100%' colorScheme='green' onClick={() => reUpdateTask(index, task.isChecked)} isChecked={task.isChecked}>
                           <Flex w={'100%'} flexDir={'row'}>
                             <Text key={index} align={'left'} textAlign={'left'}>{task.input}</Text>
                             <IconButton aria-label={''} bg={'green.600'} pos='absolute' right={0} icon={<CheckIcon />} onClick={() => completeTask(task.input, index)} ></IconButton>

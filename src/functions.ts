@@ -37,3 +37,10 @@ export function isLoggedIn() {
         return (true)
     }
 }
+
+export function getFirstName() {
+    let name = readDisplayName()
+    const firstName:any = name?.split(" ")
+
+    return (firstName[0])
+}

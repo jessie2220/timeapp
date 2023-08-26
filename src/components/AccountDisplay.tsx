@@ -1,13 +1,8 @@
 //import React from 'react'
-import { readDisplayName, readEmail, readImageURL } from '../functions'
+import { getFirstName, readDisplayName, readEmail, readImageURL } from '../functions'
 import styled from 'styled-components'
 
-function getFirstName() {
-    let name = readDisplayName()
-    const firstName:any = name?.split(" ")
 
-    return (firstName[0])
-}
 
 const Img = styled.img`
 border-radius: 50%; 
