@@ -1,6 +1,6 @@
 import { CheckIcon, DeleteIcon, EditIcon } from '@chakra-ui/icons'
 import {
-  Alert, AlertDescription, AlertIcon, AlertTitle, Box, Button, Center, Checkbox, CloseButton, Flex, FormControl, IconButton, Input,
+  Alert, AlertDescription, AlertIcon, AlertTitle, Box, Button, Checkbox, CloseButton, Editable, EditablePreview, Flex, FormControl, IconButton, Input,
   Progress,
   Select, Tab, TabList,
   TabPanel, TabPanels, Tabs, Text,
@@ -28,7 +28,7 @@ const TaskList = () => {
     setInput('')
   }
 
-  const updateTask = (index: any, checked:any) => {
+  const updateTask = (index: any, checked: any) => {
 
     const arrCopy = [...incompleteTaskList]
     // arrCopy[index] = { input: task, isChecked: true }
@@ -37,20 +37,28 @@ const TaskList = () => {
     setIncompleteTaskList(arrCopy)
   }
 
-  const reUpdateTask = (index: any, checked:any) => {
-    // const arrCopy = [...incompleteTaskList]
-    // arrCopy[index] = { input: task, isChecked: false }
-    // setIncompleteTaskList(arrCopy)
+  // const reUpdateTask = (index: any, checked: any) => {
+  //   // const arrCopy = [...incompleteTaskList]
+  //   // arrCopy[index] = { input: task, isChecked: false }
+  //   // setIncompleteTaskList(arrCopy)
 
-    const arrCopy = [...incompleteTaskList]
-    arrCopy[index].isChecked = checked
-    setIncompleteTaskList(arrCopy)
-  }
+  //   const arrCopy = [...incompleteTaskList]
+  //   arrCopy[index].isChecked = false
+  //   setIncompleteTaskList(arrCopy)
+  // }
 
   const completeTask = (task: any, index: any) => {
+
     setCompleteTaskList((prevState: any) => [...prevState, task])
 
     deleteTask(index)
+
+
+    // incompleteTaskList[index] = { isChecked: false }
+  }
+
+  const editTask = (index:any) => {
+    console.log('edit task    ' + index)
   }
 
   const deleteTask = (index: any) => {
@@ -105,7 +113,7 @@ const TaskList = () => {
           <p>XP BAR</p>
         </div>
         <Flex color={'red'} w={'100%'} justifyContent={'center'}>
-            <Progress colorScheme='pink' value={20} w={500} hasStripe isAnimated max={100}/>
+          <Progress colorScheme='pink' value={20} w={500} hasStripe isAnimated max={100} />
         </Flex>
 
         <Flex w='100%' h='100vh'>
@@ -140,41 +148,56 @@ const TaskList = () => {
                     // {console.log("Index in map   " + index + "  :  " + task)}
                     // </>
 
-                    task.isChecked ?
+                    // task.isChecked ?
 
-                      // <>
-                      //   <Checkbox flexDir={'row'} mb={8} w='100%' colorScheme='red' onChange={(e) => updateTask(index, e.target.checked)} isChecked={task.isChecked}>
-                      //     <Flex w={'100%'} flexDir={'row'}>
-                      //       <Text key={index} align={'left'} textAlign={'left'}>{task.input}</Text>
-                      //       <IconButton aria-label={''} bg={'yellow.500'} pos='absolute' right={14} icon={<EditIcon />} onClick={() => deleteTask(index)} ></IconButton>
-                      //       <IconButton aria-label={''} bg={'red.600'} pos='absolute' right={0} icon={<DeleteIcon />} onClick={() => deleteTask(index)} ></IconButton>
-                      //     </Flex>
-                      //   </Checkbox>
-                      //   {/* {console.log(task.input + '  :  ' + task.isChecked)} */}
-                      // </>
+                    //   // <>
+                    //   //   <Checkbox flexDir={'row'} mb={8} w='100%' colorScheme='red' onChange={(e) => updateTask(index, e.target.checked)} isChecked={task.isChecked}>
+                    //   //     <Flex w={'100%'} flexDir={'row'}>
+                    //   //       <Text key={index} align={'left'} textAlign={'left'}>{task.input}</Text>
+                    //   //       <IconButton aria-label={''} bg={'yellow.500'} pos='absolute' right={14} icon={<EditIcon />} onClick={() => deleteTask(index)} ></IconButton>
+                    //   //       <IconButton aria-label={''} bg={'red.600'} pos='absolute' right={0} icon={<DeleteIcon />} onClick={() => deleteTask(index)} ></IconButton>
+                    //   //     </Flex>
+                    //   //   </Checkbox>
+                    //   //   {/* {console.log(task.input + '  :  ' + task.isChecked)} */}
+                    //   // </>
 
-                      <>
-                        <Checkbox flexDir={'row'} mb={8} w='100%' colorScheme='green' onClick={() => reUpdateTask(index, task.isChecked)} isChecked={task.isChecked}>
-                          <Flex w={'100%'} flexDir={'row'}>
-                            <Text key={index} align={'left'} textAlign={'left'}>{task.input}</Text>
-                            <IconButton aria-label={''} bg={'green.600'} pos='absolute' right={0} icon={<CheckIcon />} onClick={() => completeTask(task.input, index)} ></IconButton>
-                          </Flex>
-                        </Checkbox>
-                        {console.log(task.input + '  :  ' + task.isChecked)}
-                      </>
+                    //   <>
+                    //     <Checkbox flexDir={'row'} mb={8} w='100%' colorScheme='green' onChange={(e) => reUpdateTask(index, e.target.checked)} isChecked={task.isChecked}>
+                    //       <Flex w={'100%'} flexDir={'row'}>
+                    //         <Text key={index} align={'left'} textAlign={'left'}>{task.input}</Text>
+                    //         {/* <IconButton aria-label={''} bg={'green.600'} pos='absolute' right={0} icon={<CheckIcon />} onClick={() => completeTask(task.input, index, task.isChecked)} ></IconButton> */}
+                    //       </Flex>
+                    //     </Checkbox>
+                    //     {/* {console.log(task.input + '  :  ' + task.isChecked)} */}
+                    //   </>
 
-                      :
+                    //   :
 
-                      <>
-                        <Checkbox flexDir={'row'} mb={8} w='100%' colorScheme='red' onChange={(e) => updateTask(index, e.target.checked)}>
-                          <Flex w={'100%'} flexDir={'row'}>
-                            <Text key={index} align={'left'} textAlign={'left'}>{task.input}</Text>
-                            <IconButton aria-label={''} bg={'yellow.500'} pos='absolute' right={14} icon={<EditIcon />} onClick={() => deleteTask(index)} ></IconButton>
-                            <IconButton aria-label={''} bg={'red.600'} pos='absolute' right={0} icon={<DeleteIcon />} onClick={() => deleteTask(index)} ></IconButton>
-                          </Flex>
-                        </Checkbox>
-                        {/* {console.log(task.input + '  :  ' + task.isChecked)} */}
-                      </>
+                    //   <>
+                    //     <Checkbox flexDir={'row'} mb={8} w='100%' colorScheme='red' onChange={(e) => updateTask(index, e.target.checked)} isChecked={task.isChecked}>
+                    //       <Flex w={'100%'} flexDir={'row'}>
+                    //         <Text key={index} align={'left'} textAlign={'left'}>{task.input}</Text>
+                    //         <IconButton aria-label={''} bg={'green.600'} pos='absolute' right={28} icon={<CheckIcon />} onClick={() => completeTask(task.input, index)} ></IconButton>
+                    //         <IconButton aria-label={''} bg={'yellow.500'} pos='absolute' right={14} icon={<EditIcon />} onClick={() => deleteTask(index)} ></IconButton>
+                    //         <IconButton aria-label={''} bg={'red.600'} pos='absolute' right={0} icon={<DeleteIcon />} onClick={() => deleteTask(index)} ></IconButton>
+                    //       </Flex>
+                    //     </Checkbox>
+                    //     {/* {console.log(task.input + '  :  ' + task.isChecked)} */}
+                    //   </>
+
+                    <>
+                      <Checkbox flexDir={'row'} mb={8} w='100%' colorScheme='blue' onChange={(e) => updateTask(index, e.target.checked)} isChecked={task.isChecked}>
+                        <Flex w={'100%'} flexDir={'row'}>
+                          <Editable key={index} textAlign={'left'}>
+                            <EditablePreview />
+                            {task.input}
+                          </Editable>
+                          <IconButton aria-label={''} bg={'green.600'} pos='absolute' right={28} icon={<CheckIcon />} onClick={() => completeTask(task.input, index)} ></IconButton>
+                          <IconButton aria-label={''} bg={'yellow.500'} pos='absolute' right={14} icon={<EditIcon />} onClick={() => editTask(index)} ></IconButton>
+                          <IconButton aria-label={''} bg={'red.600'} pos='absolute' right={0} icon={<DeleteIcon />} onClick={() => deleteTask(index)} ></IconButton>
+                        </Flex>
+                      </Checkbox>
+                    </>
 
                   ))}
                 </TabPanel>

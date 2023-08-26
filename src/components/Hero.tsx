@@ -4,8 +4,8 @@ import { getAuth, GoogleAuthProvider, signInWithPopup, signOut, setPersistence, 
 // import { useNavigate } from 'react-router-dom'
 import styled from 'styled-components'
 import { isLoggedIn } from '../functions'
-import { writeUserData, test } from '../config/config'
-import { useNavigate } from 'react-router-dom'
+import { writeUserData } from '../config/config'
+// import { useNavigate } from 'react-router-dom'
 
 // primary-600
 const Button = styled.button`

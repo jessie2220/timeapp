@@ -1,7 +1,7 @@
 //import React from 'react'
+import { Flex, useColorModeValue } from '@chakra-ui/react'
 import { getFirstName, readDisplayName, readEmail, readImageURL } from '../functions'
 import styled from 'styled-components'
-
 
 
 const Img = styled.img`
@@ -11,23 +11,25 @@ height: auto;
 `
 
 
-
-
 const AccountDisplay = () => {
 
     return (
         <>
-            <div className="text-black bg-white h-screen">
+            <Flex p={4} bg={useColorModeValue('white', '#141214')} textAlign={'center'} flexDir={'column'}>
                 <div className='text-center'>
                     Hello {getFirstName()}
                 </div>
-                Account info
-                <ul>
+                <ul className='text-left'>
+                    <li>Account info</li>
                     <li>Name: {readDisplayName()}</li>
                     <li>Email: {readEmail()}</li>
                     <li><Img src={readImageURL()} /></li>
                 </ul>
-            </div>
+            </Flex>
+
+
+
+            <div className='h-screen'></div>
         </>
     )
 }

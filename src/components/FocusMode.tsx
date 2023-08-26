@@ -27,9 +27,11 @@ height: auto;
 
 
 const FocusMode = () => {
-    const [value, setValue] = useState(0)
-    const handleChange = (value: any) => setValue(value)
 
+    const minMinutes = 5
+    const maxMinutes = 90
+    const [value, setValue] = useState(minMinutes)
+    const handleChange = (value: any) => setValue(value)
 
 
     var [a, setA] = useState(1)
@@ -64,7 +66,7 @@ const FocusMode = () => {
                 <li>Set time example</li>
                 <li className="bg-white bg-opacity-40 mx-80">
                     <Flex w={'90%'} color={"black"}>
-                        <NumberInput maxW='100px' mr='2rem' value={value} onChange={handleChange} max={90}>
+                        <NumberInput maxW='100px' mr='2rem' value={value} onChange={handleChange} max={maxMinutes} min={minMinutes}>
                             <NumberInputField />
                             <NumberInputStepper>
                                 <NumberIncrementStepper />
@@ -76,7 +78,8 @@ const FocusMode = () => {
                             focusThumbOnChange={false}
                             value={value}
                             onChange={handleChange}
-                            max={90}
+                            max={maxMinutes}
+                            min={minMinutes}
                         >
                             <SliderTrack>
                                 <SliderFilledTrack />

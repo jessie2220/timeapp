@@ -15,7 +15,6 @@ import {
     DrawerHeader,
     DrawerContent,
     DrawerBody,
-    VStack,
     Menu,
     MenuButton,
     Avatar,

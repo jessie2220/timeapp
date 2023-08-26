@@ -50,7 +50,7 @@ const App = () => {
         
       </div>
       <div>
-        <Footer />
+        <Footer loggedState={loggedState} />
       </div>
     </>
   )

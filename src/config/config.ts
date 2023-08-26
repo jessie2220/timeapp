@@ -105,6 +105,10 @@ export function getTaskAmountFromDatabase(uid: any): string {
 
 }
 
+
+
+// ????? idk what this is testing anymore
+
 export async function test() {
     const reference = ref(db, 'users/' + sessionStorage.getItem("uid") + '/taskAmount')
 
