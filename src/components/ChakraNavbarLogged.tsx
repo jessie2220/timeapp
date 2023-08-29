@@ -22,12 +22,13 @@ import {
     Center,
     MenuDivider,
     MenuItem,
+    Link,
 } from '@chakra-ui/react'
 import { CloseIcon, HamburgerIcon, MoonIcon, SunIcon } from '@chakra-ui/icons'
 import { GrGoogle } from 'react-icons/Gr'
-import { PiMountainsFill } from 'react-icons/Pi'
 import { signOutWithGoogle } from './Hero'
 import { getFirstName, readImageURL } from '../functions'
+import mountain from '../assets/mountain1.1.jpg'
 
 // interface Props {
 //   children: React.ReactNode
@@ -44,8 +45,7 @@ const NavLink = (link: any) => {
                 color={useColorModeValue('black', 'white')}
                 rounded={'md'}
                 _hover={{
-                    textDecoration: 'none',
-                    bg: useColorModeValue('gray.400', 'gray.200'),
+                    bg: useColorModeValue('rgba(0,0,0,0.1)', 'rgba(255,255,255,0.1)'),
                 }}
                 href={link.address}>
                 {link.children}
@@ -65,9 +65,8 @@ const SideBarLink = (link: any) => {
                 color={useColorModeValue('black', 'white')}
                 rounded={'md'}
                 _hover={{
-                    textDecoration: 'none',
-                    bg: useColorModeValue('gray.400', 'gray.400'),
-                }}
+                    bg: useColorModeValue('rgba(0,0,0,0.1)', 'rgba(255,255,255,0.1)'),
+                  }}
                 href={link.address}>
                 {link.children}
             </Box>
@@ -75,29 +74,10 @@ const SideBarLink = (link: any) => {
     )
 }
 
-const NewMenuItem = (name:any) => {
-
-    return (
-        <>
-            <MenuItem
-                color={useColorModeValue('black', 'white')}
-                bg={useColorModeValue('white', 'black')}
-                _hover={{
-                    textDecoration: 'none',
-                    bg: useColorModeValue('gray.400', 'gray.400'),
-                }}
-            >
-                {name.children}
-            </MenuItem>
-        </>
-    )
-}
-
 const Links = [
     { name: 'Tasks', address: '/' },
     { name: 'Focus', address: './focus' },
-    { name: 'Analytics', address: './analytics' },
-    { name: 'Account', address: './account' }
+    { name: 'Analytics', address: './analytics' }
 ]
 
 
@@ -106,7 +86,7 @@ const ChakraNavbarLogged = (props: any) => {
     const { isOpen, onOpen, onClose } = useDisclosure()
     return (
         <>
-            <Box bg={useColorModeValue('rgba(255,255,255,0)', 'rgba(0,0,0,0)')} px={4}>
+            <Box bg={useColorModeValue('bgLight.100', 'bgDark.900')} px={4}>
                 <Flex h={16} alignItems={'center'} justifyContent={'space-between'}>
 
 
@@ -117,6 +97,9 @@ const ChakraNavbarLogged = (props: any) => {
                             aria-label={'Open Menu'}
                             display={{ md: 'none' }}
                             onClick={isOpen ? onClose : onOpen}
+                            _hover={{
+                                bg: useColorModeValue('rgba(0,0,0,0.1)', 'rgba(255,255,255,0.1)'),
+                            }}
                         />
                         <Drawer placement={'left'} onClose={onClose} isOpen={isOpen}>
                             <DrawerOverlay />
@@ -124,10 +107,20 @@ const ChakraNavbarLogged = (props: any) => {
                                 <DrawerHeader borderBottomWidth='1px'>
                                     <Button
                                         variant={'solid'}
-                                        colorScheme={'gray'}
+                                        color={useColorModeValue('textLight.100', 'textDark.900')}
+                                        bg={useColorModeValue('bgLight.100', 'bgDark.900')}
+                                        _hover={{
+                                            bg: useColorModeValue('rgba(0,0,0,0.1)', 'rgba(255,255,255,0.1)'),
+                                        }}
                                         size={'sm'}
                                         mr={4}
-                                        leftIcon={<PiMountainsFill />}>
+                                        py={6}
+                                        leftIcon={
+                                            <Avatar
+                                                size={'sm'}
+                                                src={mountain}
+                                            />}
+                                    >
                                         LOGO
                                     </Button>
                                 </DrawerHeader>
@@ -142,10 +135,20 @@ const ChakraNavbarLogged = (props: any) => {
                         </Drawer>
                         <Button
                             variant={'solid'}
-                            colorScheme={'gray'}
+                            color={useColorModeValue('textLight.100', 'textDark.900')}
+                            bg={useColorModeValue('bgLight.100', 'bgDark.900')}
+                            _hover={{
+                                bg: useColorModeValue('rgba(0,0,0,0.1)', 'rgba(255,255,255,0.1)'),
+                            }}
                             size={'sm'}
                             mr={4}
-                            leftIcon={<PiMountainsFill />}>
+                            py={6}
+                            leftIcon={
+                                <Avatar
+                                    size={'sm'}
+                                    src={mountain}
+                                />}
+                        >
                             LOGO
                         </Button>
                         <HStack as={'nav'} spacing={4} display={{ base: 'none', md: 'flex' }}>
@@ -163,10 +166,17 @@ const ChakraNavbarLogged = (props: any) => {
                                 size={'sm'}
                                 mt={1}
                                 onClick={() => signOutWithGoogle(props)}
+                                _hover={{
+                                    bg: useColorModeValue('rgba(0,0,0,0.1)', 'rgba(255,255,255,0.1)'),
+                                }}
                                 leftIcon={<GrGoogle />}>
                                 Sign out
                             </Button>
-                            <Button onClick={toggleColorMode}>
+                            <Button 
+                                onClick={toggleColorMode}
+                                _hover={{
+                                    bg: useColorModeValue('rgba(0,0,0,0.1)', 'rgba(255,255,255,0.1)'),
+                                }}>
                                 {colorMode === 'light' ? <MoonIcon /> : <SunIcon />}
                             </Button>
 
@@ -183,7 +193,7 @@ const ChakraNavbarLogged = (props: any) => {
                                         src={readImageURL()}
                                     />
                                 </MenuButton>
-                                <MenuList alignItems={'center'} bg={useColorModeValue('white', 'black')}>
+                                <MenuList alignItems={'center'} bg={useColorModeValue('bgLight.100', 'bgDark.900')}>
                                     <br />
                                     <Center>
                                         <Avatar
@@ -197,8 +207,26 @@ const ChakraNavbarLogged = (props: any) => {
                                     </Center>
                                     <br />
                                     <MenuDivider />
-                                    <NewMenuItem>Account</NewMenuItem>
-                                    <NewMenuItem>Logout</NewMenuItem>
+                                    <MenuItem
+                                        bg={useColorModeValue('bgLight.100', 'bgDark.900')}
+                                        _hover={{
+                                            bg: useColorModeValue('rgba(0,0,0,0.1)', 'rgba(255,255,255,0.1)'),
+                                        }}>
+                                        <Link 
+                                        href='/account'
+                                        _hover={{
+                                            textDecoration: 'none',
+                                        }}>
+                                            Account
+                                        </Link>
+                                    </MenuItem>
+                                    <MenuItem
+                                        bg={useColorModeValue('bgLight.100', 'bgDark.900')}
+                                        _hover={{
+                                            bg: useColorModeValue('rgba(0,0,0,0.1)', 'rgba(255,255,255,0.1)'),
+                                          }}
+                                          onClick={() => signOutWithGoogle(props)}>
+                                        Logout</MenuItem>
                                 </MenuList>
                             </Menu>
                         </Stack>

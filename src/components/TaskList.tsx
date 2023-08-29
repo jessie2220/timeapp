@@ -96,7 +96,7 @@ const TaskList = () => {
     <div className="flex flex-col mx-auto px-8 lg:px-40 mt-4">
 
       {/* mx:auto text-center justify-center */}
-      <div className='bg-black bg-opacity-60 p-4 mx:auto justify-center text-black rounded-2xl'>
+      <div className='bg-black bg-opacity-60 p-4 mx:auto justify-center text-black rounded-2xl h-[2000px] mb-24'>
         {/* <div className='text-[#7926ff] font-bold md:text-3xl mb-4'>TASK LIST</div> */}
 
         {/* <Input focusBorderColor='black' placeholder='Enter new task' color='red' _placeholder={{ opacity: 0.4, color: 'inherit' }}/> */}
@@ -113,7 +113,7 @@ const TaskList = () => {
           <p>XP BAR</p>
         </div>
         <Flex color={'red'} w={'100%'} justifyContent={'center'}>
-          <Progress colorScheme='pink' value={20} w={500} hasStripe isAnimated max={100} />
+          <Progress colorScheme='pink' value={20} w={700} hasStripe isAnimated max={100} />
         </Flex>
 
         <Flex w='100%' h='100vh'>
@@ -140,7 +140,7 @@ const TaskList = () => {
                 <Tab>Completed</Tab>
                 <Tab>Expired</Tab>
               </TabList>
-              <TabPanels>
+              <TabPanels overflowY={'scroll'} maxH={600}>
                 <TabPanel>
                   {incompleteTaskList.map((task: any, index: number) => (
                     // <>
@@ -204,7 +204,7 @@ const TaskList = () => {
                 <TabPanel>
                   {completeTaskList.map((task: string) => (
                     <>
-                      <Flex w={'100%'} flexDir={'row'}>
+                      <Flex w={'100%'} flexDir={'row'} mb={4}>
                         <Text key={task} align={'left'} textAlign={'left'}>{task}</Text>
                       </Flex>
                     </>
@@ -222,7 +222,7 @@ const TaskList = () => {
       </div>
 
 
-      <div className="h-screen"></div>
+      {/* <div className="h-screen"></div> */}
     </div>
   )
 }

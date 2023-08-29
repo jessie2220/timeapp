@@ -1,25 +1,12 @@
 //import React, { useEffect } from 'react'
-import Typed from 'react-typed'
 import { getAuth, GoogleAuthProvider, signInWithPopup, signOut, setPersistence, browserSessionPersistence } from 'firebase/auth'
-// import { useNavigate } from 'react-router-dom'
-import styled from 'styled-components'
-import { isLoggedIn } from '../functions'
 import { writeUserData } from '../config/config'
-// import { useNavigate } from 'react-router-dom'
-
-// primary-600
-const Button = styled.button`
-color: white;
-font-size: auto;
-padding: 10px;
-border-radius: 5px;
-margin: 10px 0px;
-cursor: pointer;
-transition:  0.25s;
-border-radius: 8px;
-width: 200px
-`;
-
+import Hero2nd from './Hero2nd'
+import { Flex } from '@chakra-ui/react'
+import { useRef } from 'react'
+import About from './About'
+import Hero1st from './Hero1st'
+import Hero3rd from './Hero3rd'
 
 
 export const signOutWithGoogle = async (props: any) => {
@@ -70,64 +57,30 @@ export const signInWithGoogle = async (props:any) => {
     })
 }
 
-
 const Hero = (props: any) => {
 
-    // const auth = getAuth()
-    // const navigate = useNavigate()
-    
 
-    // const signInWithGoogle = async () => {
-    //         setPersistence(auth, browserSessionPersistence).then(() => {
-    //             return(signInWithPopup(auth, new GoogleAuthProvider())
-    //             .then(async response => {
-    //                 console.log(response.user.uid)
-    //                 console.log(response.user.displayName)
-    //                 console.log(response.user.email)
-
-    //                 sessionStorage.setItem("displayName", response.user.displayName || '')
-    //                 sessionStorage.setItem("email", response.user.email || '')
-    //                 sessionStorage.setItem("uid", response.user.uid || '')
-    //                 sessionStorage.setItem("imageURL", response.user.photoURL || '')
-
-    //                 writeUserData(response.user.uid, response.user.displayName as string, response.user.email as string, response.user.photoURL as string)
-
-    //                 sessionStorage.setItem("taskAmount", await test())
-                    
-    //                 props.setLoggedState(true)
-    //                 navigate('/')
-    //             })
-    //             .catch(error => {
-    //                 console.log(error)
-    //             }))
-    //         })
-    // }
+    const resultRef = useRef(null);
+    // console.log(resultRef.current)
 
 
     return (
-        <div>
-            <div className='mx:auto text-center flex flex-col justify-center text-[#ffffffe1] bg-black bg-opacity-0 pb-[20px]'>
-                <p className='text-pink-500 font-bold p-2 md:text-3xl mt-10'>TEST STRING</p>
-                <h1 className='md:text-7xl sm:text-6xl text-4xl font-bold md:py-6 drop-shadow-[0_2.2px_2.2px_rgba(0,0,0,1)]'>string 2 but longer</h1>
-                <div className='flex justify-center items-center'>
-                    <p className='md:text-5xl sm:text-4xl text-xl font-bold py-4 drop-shadow-[0_2.2px_2.2px_rgba(0,0,0,1)]'>yet another test string</p>
-                    <Typed className='md:text-5xl sm:text-4xl text-xl font-bold md:pl-4 pl-2 drop-shadow-[0_2.2px_2.2px_rgba(0,0,0,1)]' strings={['Test', 'Best', 'Nest']} typeSpeed={120} backSpeed={140} loop />
-                </div>
-                <p className='md:text-2xl text-xl font-bold text-[#ff30cb] drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,1)]'>Even more text haebaerolkgnaregl</p>
-                <ul className='mt-[20px] font-medium mx-auto'>
-                    <li>
-                        <Button className='shadow-md bg-gradient-to-r from-green-400 to-primary-500 hover:from-pink-500 hover:to-yellow-500' onClick={() => signInWithGoogle(props)} disabled={isLoggedIn()}>Sign in with Google</Button> 
-                    </li>
-                </ul>
-            </div>
-            <div className=' w-full h-80 bg-gradient-to-t from-blue-100 to-white border bg-opacity-50 border-y-gray-200 text-black text-center'>
-                    <p className='mt-[120px]'>IMPORTANT TEXT</p>
-                </div>
+        <>
+            <Hero1st setLoggedState={props.setLoggedState} />
 
-                <div className='w-full h-80 border-b-gray-200 text-black text-center'>
-                    <p className='mt-[120px] text-white'>IMPORTANT TEXT 2</p>
-                </div>
-        </div>
+            <Flex>
+                {/* {<Hero2nd resultRef={resultRef} />} */}
+
+                {/* This is not the proper way but above doesnt work for some reason */}
+                {Hero2nd(resultRef, props)}
+
+            </Flex>
+
+            <Hero3rd />
+
+            {<About ref={resultRef} />}
+
+        </>
     )
 }
 

@@ -24,9 +24,9 @@ const App = () => {
 
   function test2() {
     if (!loggedState) {
-      return ("bg-[url('./assets/mountain-bg.jpg')] bg-cover bg-right-top lg:bg-left-top")
+      return ("bg-[url('./assets/mountain-bg-phone.jpg')] bg-no-repeat bg-cover bg-top sm:bg-[url('./assets/mountain-bg-cropped2.jpg')] bg-cover bg-fixed")
     } else {
-      return ("bg-[url('./assets/mountain-bg2.jpg')] bg-cover bg-top")
+      return ("bg-[url('./assets/mountain-bg2-cropped.jpg')] bg-cover bg-[center_top_2rem] bg-no-repeat")
     }
   }
 

@@ -21,24 +21,3 @@ export function unAuthRedirect() {
 
 }
 
-
-export function noPageRedirect() {
-  const navigate = useNavigate()
-  const [loading, setLoading] = useState(false)
-
-  useEffect(() => {
-    setLoading(true)
-    setTimeout(() => {
-      navigate('/')
-      setLoading(false)
-    }, 3000)
-  }, [])
-
-  return (
-    <>
-      <p className='lg:text-4xl text-3xl font-bold text-[#b78bff] justify-center text-center mt-40'>NO PAGE FOUND :(</p>
-      <p className="text-xl font-bold text-black justify-center text-center mt-40 h-screen">Redirecting<p className="">{loading ? <ClipLoader color="#000000" size={20} /> : ""}</p></p>
-    </>
-  )
-}
-

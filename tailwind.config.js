@@ -5,6 +5,9 @@ export default {
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
+    backgroundPosition: {
+      'custom-top': 'center top'
+    },
     extend: {
       colors: {
         'default-background': '#e0e0e0',

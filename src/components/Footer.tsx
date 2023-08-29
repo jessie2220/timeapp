@@ -7,10 +7,11 @@ import { Avatar, Box, Container, Stack, Text, useColorModeValue } from '@chakra-
 import mountain from '../assets/mountain1.1.jpg'
 
 function FooterComponent() {
+
     return (
         <Box
-            bg={useColorModeValue('gray.50', '#141214')}
-            color={useColorModeValue('gray.700', 'gray.200')}>
+            bg={useColorModeValue('bgLight.100', 'bgDark.900')}
+            color={useColorModeValue('gray.800', 'textDark.900')}>
             <Container
                 as={Stack}
                 maxW={'6xl'}
@@ -27,11 +28,11 @@ function FooterComponent() {
                     <Box as="a" href={'/'}>
                         Home
                     </Box>
-                    <Box as="a" href={'#'}>
+                    <Box as="a" href={'#about'}>
                         About
                     </Box>
                 </Stack>
-                <Text>Timeapp footer text</Text>
+                <Text color={useColorModeValue('gray.800', 'textDark.900')}>Timeapp footer text</Text>
             </Container>
         </Box>
     )
@@ -66,9 +67,6 @@ function FooterComponentLogged() {
                     </Box>
                     <Box as="a" href={'/Account'}>
                         Account
-                    </Box>
-                    <Box as="a" href={'#'}>
-                        About?
                     </Box>
                 </Stack>
                 <Text>Timeapp logged in footer text</Text>

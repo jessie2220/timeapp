@@ -20,7 +20,7 @@ const components = {
         // setup light/dark mode component defaults
         baseStyle: (props: any) => ({
             dialog: {
-                bg: mode('white', '#141214')(props),
+                bg: mode('#edf2f7', '#141214')(props),
             },
         }),
     },
@@ -30,6 +30,23 @@ const theme = extendTheme({
     components,
     styles,
     initialColorMode: 'dark',
+    colors: {
+        bgDark: {
+            900: "#141214"
+        },
+        bgLight: {
+            100: "#edf2f7"
+        },
+        textDark: {
+            900: "#edeced"
+        },
+        textLight: {
+            100: "gray.800"
+        }
+    },
+    shadows: {
+        mainShadow: "0 0 8px 3px rgba(0,0,0,0.2)"
+    }
 });
 
 export default theme;
