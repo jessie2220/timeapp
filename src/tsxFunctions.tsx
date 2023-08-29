@@ -1,6 +1,5 @@
-import { useState, useEffect } from "react"
+import { useEffect } from "react"
 import { useNavigate } from "react-router-dom"
-import ClipLoader from "react-spinners/ClipLoader"
 // import Typed from 'react-typed'
 
 
