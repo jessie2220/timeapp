@@ -76,6 +76,10 @@ const Hero = (props: any) => {
 
             </Flex>
 
+            <div className='text-white text-center text-2xl bg-[#292929] py-40'>
+                Something here
+            </div>
+
             <Hero3rd />
 
             {<About ref={resultRef} />}

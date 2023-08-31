@@ -41,8 +41,8 @@ function FooterComponent() {
 function FooterComponentLogged() {
     return (
         <Box
-            bg={useColorModeValue('gray.50', '#141214')}
-            color={useColorModeValue('gray.700', 'gray.200')}>
+            bg={useColorModeValue('bgLight.100', 'bgDark.900')}
+            color={useColorModeValue('textLight.100', 'textDark.900')}>
             <Container
                 as={Stack}
                 maxW={'6xl'}

@@ -42,8 +42,9 @@ const NavLink = (link: any) => {
                 as="a"
                 px={2}
                 py={1}
-                color={useColorModeValue('black', 'white')}
+                color={useColorModeValue('textLight.100', 'textDark.900')}
                 rounded={'md'}
+                fontWeight={'medium'}
                 _hover={{
                     bg: useColorModeValue('rgba(0,0,0,0.1)', 'rgba(255,255,255,0.1)'),
                 }}
@@ -86,8 +87,8 @@ const ChakraNavbarLogged = (props: any) => {
     const { isOpen, onOpen, onClose } = useDisclosure()
     return (
         <>
-            <Box bg={useColorModeValue('bgLight.100', 'bgDark.900')} px={4}>
-                <Flex h={16} alignItems={'center'} justifyContent={'space-between'}>
+            <Box bg={useColorModeValue('bgLight.100', 'bgDark.900')} px={4} position={'fixed'} w={'100%'} zIndex={9999}>
+                <Flex h={16} alignItems={'center'} justifyContent={'space-between'} maxW={{base: '', md:'80%'}} ml={{base:'0%', md:'10%'}}>
 
 
                     <HStack spacing={4} alignItems={'center'}>
@@ -134,6 +135,7 @@ const ChakraNavbarLogged = (props: any) => {
                             </DrawerContent>
                         </Drawer>
                         <Button
+                            as='a'
                             variant={'solid'}
                             color={useColorModeValue('textLight.100', 'textDark.900')}
                             bg={useColorModeValue('bgLight.100', 'bgDark.900')}
@@ -141,13 +143,15 @@ const ChakraNavbarLogged = (props: any) => {
                                 bg: useColorModeValue('rgba(0,0,0,0.1)', 'rgba(255,255,255,0.1)'),
                             }}
                             size={'sm'}
-                            mr={4}
+                            mr={2}
+                            ml={-2}
                             py={6}
                             leftIcon={
                                 <Avatar
                                     size={'sm'}
                                     src={mountain}
                                 />}
+                                href='/'
                         >
                             LOGO
                         </Button>
@@ -159,12 +163,13 @@ const ChakraNavbarLogged = (props: any) => {
                     </HStack>
 
                     <Flex alignItems={'center'}>
-                        <Stack direction={'row'} spacing={4}>
+                        <Stack direction={'row'} spacing={3}>
                             <Button
                                 variant={'solid'}
                                 colorScheme={'gray'}
                                 size={'sm'}
                                 mt={1}
+                                mr={-2}
                                 onClick={() => signOutWithGoogle(props)}
                                 _hover={{
                                     bg: useColorModeValue('rgba(0,0,0,0.1)', 'rgba(255,255,255,0.1)'),
@@ -224,9 +229,10 @@ const ChakraNavbarLogged = (props: any) => {
                                         bg={useColorModeValue('bgLight.100', 'bgDark.900')}
                                         _hover={{
                                             bg: useColorModeValue('rgba(0,0,0,0.1)', 'rgba(255,255,255,0.1)'),
-                                          }}
-                                          onClick={() => signOutWithGoogle(props)}>
-                                        Logout</MenuItem>
+                                        }}
+                                        onClick={() => signOutWithGoogle(props)}>
+                                            Sign Out
+                                        </MenuItem>
                                 </MenuList>
                             </Menu>
                         </Stack>

@@ -33,9 +33,11 @@ const theme = extendTheme({
     colors: {
         bgDark: {
             900: "#141214"
+            // 900: "#222222"
         },
         bgLight: {
             100: "#edf2f7"
+            // 100: "#c9c9c9"
         },
         textDark: {
             900: "#edeced"

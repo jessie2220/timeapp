@@ -65,7 +65,7 @@ const Hero1st = (props:any) => {
                   <Text
                   fontSize={{ base: 'md', sm: 'lg', md: 'xl' }}
                   >
-                    Start your journey of self discipline and productivity with [name of app].
+                    Start your journey of self discipline and productivity with [name of app (trek?)].
                   </Text>
                   <ul className='font-medium mx-auto'>
                       <li>

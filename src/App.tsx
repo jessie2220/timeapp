@@ -11,6 +11,7 @@ import Footer from './components/Footer'
 import Analytics from './pages/Analytics'
 import Focus from './pages/Focus'
 import { isLoggedIn } from './functions'
+import InvisNavbar from './components/InvisNavbar'
 // import { getFirestore } from "firebase/firestore"
 
 
@@ -35,6 +36,7 @@ const App = () => {
       <div className={test2()}>
         <div>
           <Navbar setLoggedState={setLoggedState} loggedState={loggedState} />
+          <InvisNavbar />
         </div>
         {/* <div className='max-w-[1240px] mx-auto px-8 mt-4'> */}
         <div>
