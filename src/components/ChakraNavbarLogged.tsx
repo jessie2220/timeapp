@@ -171,6 +171,7 @@ const ChakraNavbarLogged = (props: any) => {
                                 mt={1}
                                 mr={-2}
                                 onClick={() => signOutWithGoogle(props)}
+                                bg={useColorModeValue('rgba(0,0,0,0)', 'rgba(255,255,255,0)')}
                                 _hover={{
                                     bg: useColorModeValue('rgba(0,0,0,0.1)', 'rgba(255,255,255,0.1)'),
                                 }}
@@ -179,6 +180,7 @@ const ChakraNavbarLogged = (props: any) => {
                             </Button>
                             <Button 
                                 onClick={toggleColorMode}
+                                bg={useColorModeValue('rgba(0,0,0,0)', 'rgba(255,255,255,0)')}
                                 _hover={{
                                     bg: useColorModeValue('rgba(0,0,0,0.1)', 'rgba(255,255,255,0.1)'),
                                 }}>
