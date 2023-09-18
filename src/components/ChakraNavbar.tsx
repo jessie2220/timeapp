@@ -42,8 +42,7 @@ const ChakraNavbar = (props: any) => {
                 src={mountain}
               />}
               _hover={{
-                bg: useColorModeValue('white', 'rgba(255,255,255,0.3)'),
-                color:'black',
+                bg: useColorModeValue('white', 'rgba(50,50,50,1)'),
               }}
               >
               LOGO
@@ -69,8 +68,7 @@ const ChakraNavbar = (props: any) => {
                 onClick={() => signInWithGoogle(props)} disabled={isLoggedIn()}
                 leftIcon={<BsGoogle />}
                 _hover={{
-                  bg: useColorModeValue('white', 'rgba(255,255,255,0.3)'),
-                  color:'black',
+                  bg: useColorModeValue('white', 'rgba(50,50,50,1)'),
                 }}
                 >
                 Sign in with google
@@ -81,8 +79,7 @@ const ChakraNavbar = (props: any) => {
               bg={useColorModeValue('bgLight.100', 'bgDark.900')} 
               color={useColorModeValue('textLight.100', 'textDark.900')}
               _hover={{
-                bg: useColorModeValue('white', 'rgba(255,255,255,0.3)'),
-                color:'black',
+                bg: useColorModeValue('white', 'rgba(50,50,50,1)'),
               }}
               >
                 {colorMode === 'light' ? <MoonIcon /> : <SunIcon />}

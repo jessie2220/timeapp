@@ -40,7 +40,7 @@ export const firestoreDB = getFirestore(app)
 
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-import { get, getDatabase, onValue, ref, set } from 'firebase/database'
+import { child, get, getDatabase, onValue, ref, set } from 'firebase/database'
 
 
 const db = getDatabase()
@@ -48,18 +48,43 @@ const db = getDatabase()
 
 export function writeUserData(uid: string, name: string, email: string, imageURL: string) {
     const reference = ref(db, 'users/' + uid)
-
-    const taskAmountCheck = ref(db, 'users/' + uid + '/taskAmount')
-    onValue(taskAmountCheck, (snapshot) => {
-        const data = snapshot.val()
-        if (data == null) {
+    
+    const dbRef = ref(getDatabase())
+    get(child(dbRef, 'users/' + uid + "/XPAmount")).then((snapshot) => {
+        if (snapshot.exists()) {
+            console.log("VALUE OF XP  " + snapshot.val())
+            if (snapshot.val() > 0) {
+                sessionStorage.setItem("XPAmount", snapshot.val() || '')
+            } else {
+                sessionStorage.setItem("XPAmount", "0" || '')
+            }
+        } else {
+            console.log("XP HAS NOT BEEN FOUND")
+            sessionStorage.setItem("XPAmount", "0" || '')
             set(reference, {
                 name: name,
                 email: email,
                 image: imageURL,
-                taskAmount: 0,
+                XPAmount: 0,
             })
         }
+    })
+
+}
+
+export function updateXPAmount(uid: string, name: string, email: string, imageURL: string) {
+    const totalXP: any = sessionStorage.getItem("XPAmount")
+    const updateXPVal = parseInt(totalXP)
+
+    console.log("this is the xp amount on signb out :  " + updateXPVal)
+
+    const reference = ref(db, 'users/' + uid)
+
+    set(reference, {
+        name: name,
+        email: email,
+        image: imageURL,
+        XPAmount: updateXPVal,
     })
 }
 
@@ -103,27 +128,14 @@ export function getImageFromDatabase(uid: any):string | undefined {
     return (data)
 }
 
-export function getTaskAmountFromDatabase(uid: any): string {
-    const reference = ref(db, 'users/' + uid + '/taskAmount')
-    var data
-    onValue(reference, (snapshot) => {
-        data = snapshot.val()
-        console.log("should be 0      ", data)
-    })
+// export function getTaskAmountFromDatabase(uid: any): string {
+//     const reference = ref(db, 'users/' + uid + '/taskAmount')
+//     var data
+//     onValue(reference, (snapshot) => {
+//         data = snapshot.val()
+//         console.log("should be 0      ", data)
+//     })
 
-    return (data!)
+//     return (data!)
 
-}
-
-
-
-// ????? idk what this is testing anymore
-
-export async function test() {
-    const reference = ref(db, 'users/' + sessionStorage.getItem("uid") + '/taskAmount')
-
-    const snapshot = await get(reference)
-
-    return(snapshot.val())
-
-}
+// }

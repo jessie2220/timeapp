@@ -23,7 +23,7 @@ margin: 10px 0px;
 cursor: pointer;
 transition:  0.25s;
 border-radius: 8px;
-width: 200px
+width: 100%
 `;
 
 const Hero1st = (props:any) => {
@@ -60,18 +60,24 @@ const Hero1st = (props:any) => {
                       fontSize={{ base: '2xl', sm: '4xl', md: '6xl' }}
                       lineHeight={'110%'}
                   >
-                      Gamified to-do list with powerful features.
+                      Gamified to-do list
                   </Heading>
+                  <Text
+                    fontWeight={700}
+                    fontSize={{ base: '2xl', sm: '4xl', md: '6xl' }}
+                    lineHeight={'110%'}
+                    mt={{ base: -5, md: -10 }}
+                  >
+                    with powerful features.
+                  </Text>
                   <Text
                   fontSize={{ base: 'md', sm: 'lg', md: 'xl' }}
                   >
                     Start your journey of self discipline and productivity with [name of app (trek?)].
                   </Text>
-                  <ul className='font-medium mx-auto'>
-                      <li>
-                          <Button className='shadow-md bg-gradient-to-r from-green-400 to-primary-500 hover:from-pink-500 hover:to-yellow-500' onClick={() => signInWithGoogle(props)} disabled={isLoggedIn()}>Sign in with Google</Button>
-                      </li>
-                  </ul>
+                  <Container w={{base:'150px', sm:'200px'}}>
+                    <Button className='shadow-md bg-gradient-to-r from-green-400 to-primary-500 hover:from-pink-500 hover:to-yellow-500 font-medium' onClick={() => signInWithGoogle(props)} disabled={isLoggedIn()}>Sign in with Google</Button>
+                  </Container>
               </Stack>
           </Container>
       </>

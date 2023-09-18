@@ -24,6 +24,9 @@ export function readTaskAmount(): any {
     return (sessionStorage.getItem("taskAmount"))
 }
 
+export function readXPAmount(): any {
+    return (sessionStorage.getItem("XPAmount"))
+}
 
 export function isLoggedIn() {
     let keys = Object.keys(window.sessionStorage)

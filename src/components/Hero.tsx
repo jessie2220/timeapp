@@ -1,25 +1,30 @@
 //import React, { useEffect } from 'react'
 import { getAuth, GoogleAuthProvider, signInWithPopup, signOut, setPersistence, browserSessionPersistence } from 'firebase/auth'
-import { writeUserData } from '../config/config'
+import { updateXPAmount, writeUserData } from '../config/config'
 import Hero2nd from './Hero2nd'
 import { Flex } from '@chakra-ui/react'
 import { useRef } from 'react'
 import About from './About'
 import Hero1st from './Hero1st'
 import Hero3rd from './Hero3rd'
+import { readDisplayName, readEmail, readImageURL, readUID } from '../functions'
 
 
 export const signOutWithGoogle = async (props: any) => {
+
+    updateXPAmount(readUID() as string, readDisplayName() as string, readEmail() as string, readImageURL() as string)
 
     const auth = getAuth()
 
     signOut(auth).then(() => {
         console.log("signed out")
-        sessionStorage.removeItem("displayName")
-        sessionStorage.removeItem("email")
-        sessionStorage.removeItem("uid")
-        sessionStorage.removeItem("imageURL")
-        sessionStorage.removeItem("taskAmount")
+        // sessionStorage.removeItem("displayName")
+        // sessionStorage.removeItem("email")
+        // sessionStorage.removeItem("uid")
+        // sessionStorage.removeItem("imageURL")
+        // sessionStorage.removeItem("XPAmount")
+        
+        sessionStorage.clear()
         props.setLoggedState(false)
     }) .catch((error) => {
         console.log(error)
@@ -43,10 +48,9 @@ export const signInWithGoogle = async (props:any) => {
             sessionStorage.setItem("email", response.user.email || '')
             sessionStorage.setItem("uid", response.user.uid || '')
             sessionStorage.setItem("imageURL", response.user.photoURL || '')
+            sessionStorage.setItem("XPAmount", "0" || '')
 
             writeUserData(response.user.uid, response.user.displayName as string, response.user.email as string, response.user.photoURL as string)
-
-            // sessionStorage.setItem("taskAmount", await test())
             
             props.setLoggedState(true)
             // navigate('/')
