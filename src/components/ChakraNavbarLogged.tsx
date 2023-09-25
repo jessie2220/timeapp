@@ -102,11 +102,11 @@ const ChakraNavbarLogged = (props: any) => {
                                 bg: useColorModeValue('rgba(0,0,0,0.1)', 'rgba(255,255,255,0.1)'),
                             }}
                         />
-                        <Drawer placement={'left'} onClose={onClose} isOpen={isOpen}>
+                        <Drawer placement={'left'} onClose={onClose} isOpen={isOpen} preserveScrollBarGap>
                             <DrawerOverlay />
                             <DrawerContent>
-                                <DrawerHeader borderBottomWidth='1px'>
-                                    <Button
+                                <DrawerHeader borderBottomWidth='1px' mt={12}>
+                                    {/* <Button
                                         variant={'solid'}
                                         color={useColorModeValue('textLight.100', 'textDark.900')}
                                         bg={useColorModeValue('bgLight.100', 'bgDark.900')}
@@ -123,7 +123,7 @@ const ChakraNavbarLogged = (props: any) => {
                                             />}
                                     >
                                         LOGO
-                                    </Button>
+                                    </Button> */}
                                 </DrawerHeader>
                                 <DrawerBody>
                                     <Stack>

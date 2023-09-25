@@ -355,7 +355,7 @@
 
 
 
-import { DeleteIcon, EditIcon, StarIcon } from "@chakra-ui/icons";
+import { CheckIcon, DeleteIcon, EditIcon } from "@chakra-ui/icons";
 
 import {
   Alert,
@@ -397,7 +397,7 @@ import {
 } from "@chakra-ui/react";
 
 import { useEffect, useRef, useState } from "react";
-import { firestoreDB } from "../config/config";
+import { firestoreDB, updateXPAmount } from "../config/config";
 import {
   addDoc,
   collection,
@@ -408,7 +408,7 @@ import {
   updateDoc,
   where,
 } from "firebase/firestore";
-import { readEmail, readXPAmount } from "../functions";
+import { readDisplayName, readEmail, readImageURL, readUID, readXPAmount } from "../functions";
 import Mountain from "./Mountain";
 
 const TaskList = () => {
@@ -528,7 +528,8 @@ const TaskList = () => {
       addedXP = 5
     }
 
-    sessionStorage.setItem("XPAmount", (parseInt(totalXP) + addedXP).toString() )
+    sessionStorage.setItem("XPAmount", (parseInt(totalXP) + addedXP).toString())
+    updateXPAmount(readUID() as string, readDisplayName() as string, readEmail() as string, readImageURL() as string)
   };
 
   const completeTask = async (
@@ -943,7 +944,7 @@ const TaskList = () => {
                         <IconButton
                           aria-label={""}
                           bg={"green.600"}
-                          icon={<StarIcon />}
+                          icon={<CheckIcon />}
                           onClick={() =>
                             completeTask(
                               task.input,
@@ -1039,6 +1040,7 @@ const TaskList = () => {
     if (xp > 600) return "gold";
 
     const index = Math.floor((xp / 1000) * (colors.length - 1));
+    {console.log("this is XP in use state:  "  + XP)}
 
     return colors[index];
   };
@@ -1053,7 +1055,7 @@ const TaskList = () => {
       <div className="text-white flex justify-center text-center mt-6">
         <Text
           fontSize="xl"
-          color={calculateColor(XP)}
+          color={calculateColor(readXPAmount())}
           transition="color 0.2s"
           sx={{
             "@keyframes pulsateOpacity": {
@@ -1070,7 +1072,7 @@ const TaskList = () => {
             animation: "pulsateOpacity 1s infinite",
           }}
         >
-          XP BAR - Level {Math.floor(XP / 100)}
+          XP BAR - Level {Math.floor(readXPAmount() / 100)}
         </Text>
       </div>
       <Flex color={"red"} w={"100%"} justifyContent={"center"}>

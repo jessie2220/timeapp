@@ -40,7 +40,7 @@ export const firestoreDB = getFirestore(app)
 
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-import { child, get, getDatabase, onValue, ref, set } from 'firebase/database'
+import { child, get, getDatabase, ref, set } from 'firebase/database'
 
 
 const db = getDatabase()
@@ -76,7 +76,7 @@ export function updateXPAmount(uid: string, name: string, email: string, imageUR
     const totalXP: any = sessionStorage.getItem("XPAmount")
     const updateXPVal = parseInt(totalXP)
 
-    console.log("this is the xp amount on signb out :  " + updateXPVal)
+    console.log("this is the updated xp amount in firebase :  " + updateXPVal)
 
     const reference = ref(db, 'users/' + uid)
 
@@ -88,45 +88,53 @@ export function updateXPAmount(uid: string, name: string, email: string, imageUR
     })
 }
 
+export async function getXPFromDatabase(uid: string) {
 
-export function getNameFromDatabase(uid: any) {
-    const reference = ref(db, 'users/' + uid + '/name')
-    let data
-
-    if (reference !== null) {
-        onValue(reference, (snapshot) => {
-            data = snapshot.val()
-            return (data)
-        })
-    } else {
-        console.log("no data")
-        return("ekirgh")
-    }
+    const snapshot = await get(ref(db, '/users/' + uid + '/XPAmount'))
+    const xpValue = snapshot.val()
+    
+    return xpValue
 }
 
 
-export function getEmailFromDatabase(uid: any) {
-    const reference = ref(db, 'users/' + uid + '/email')
-    let data
+// export function getNameFromDatabase(uid: any) {
+//     const reference = ref(db, 'users/' + uid + '/name')
+//     let data
 
-    onValue(reference, (snapshot) => {
-        data = snapshot.val()
-    })
+//     if (reference !== null) {
+//         onValue(reference, (snapshot) => {
+//             data = snapshot.val()
+//             return (data)
+//         })
+//     } else {
+//         console.log("no data")
+//         return("ekirgh")
+//     }
+// }
 
-    return (data)
-}
+
+// export function getEmailFromDatabase(uid: any) {
+//     const reference = ref(db, 'users/' + uid + '/email')
+//     let data
+
+//     onValue(reference, (snapshot) => {
+//         data = snapshot.val()
+//     })
+
+//     return (data)
+// }
 
 
-export function getImageFromDatabase(uid: any):string | undefined {
-    const reference = ref(db, 'users/' + uid + '/image')
-    let data
+// export function getImageFromDatabase(uid: any):string | undefined {
+//     const reference = ref(db, 'users/' + uid + '/image')
+//     let data
 
-    onValue(reference, (snapshot) => {
-        data = snapshot.val()
-    })
+//     onValue(reference, (snapshot) => {
+//         data = snapshot.val()
+//     })
 
-    return (data)
-}
+//     return (data)
+// }
 
 // export function getTaskAmountFromDatabase(uid: any): string {
 //     const reference = ref(db, 'users/' + uid + '/taskAmount')
