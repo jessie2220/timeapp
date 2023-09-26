@@ -1,5 +1,5 @@
 //import React from 'react'
-import { Flex, useColorModeValue } from '@chakra-ui/react'
+import { Box, Container, VStack, useColorModeValue } from '@chakra-ui/react'
 import { getFirstName, readDisplayName, readEmail, readImageURL } from '../functions'
 import styled from 'styled-components'
 
@@ -15,17 +15,17 @@ const AccountDisplay = () => {
 
     return (
         <>
-            <Flex p={4} bg={useColorModeValue('white', '#141214')} textAlign={'center'} flexDir={'column'}>
+            <Container p={20} bg={useColorModeValue('bgLight.100', 'bgDark.900')} textAlign={'center'} flexDir={'column'} rounded={'3xl'} mt={'15%'}>
                 <div className='text-center'>
-                    Hello {getFirstName()}
+                    <Box fontWeight="700" fontSize="30">Hello {getFirstName()}</Box>
                 </div>
-                <ul className='text-left'>
-                    <li>Account info</li>
-                    <li>Name: {readDisplayName()}</li>
-                    <li>Email: {readEmail()}</li>
-                    <li><Img src={readImageURL()} /></li>
-                </ul>
-            </Flex>
+                <VStack mt={12} spacing={8}>
+                    <p>Account info:</p>
+                    <p>Name: {readDisplayName()}</p>
+                    <p>Email: {readEmail()}</p>
+                    <Img src={readImageURL()} />
+                </VStack>
+            </Container>
 
 
 

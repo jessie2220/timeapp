@@ -5,18 +5,12 @@ import Navbar from './components/Navbar'
 import Account from './pages/Account'
 import Home from './pages/Home'
 import NoPage from './pages/NoPage'
-// import { initializeApp } from 'firebase/app'
-// import { config } from './config/config'
 import Footer from './components/Footer'
 import Analytics from './pages/Analytics'
 import Focus from './pages/Focus'
 import { isLoggedIn } from './functions'
 import InvisNavbar from './components/InvisNavbar'
-// import { getFirestore } from "firebase/firestore"
-
-
-// const app = initializeApp(config.firebaseConfig);
-// export const firestoreDB = getFirestore(app)
+import Tasks from './pages/Tasks'
 
 
 const App = () => {
@@ -44,6 +38,7 @@ const App = () => {
             {/* <Route path='/' element={<Navbar />} /> */}
             <Route index element={<Home setLoggedState={setLoggedState} loggedState={loggedState} />} />
             <Route path="Account" element={<Account loggedState={loggedState} />} />
+            <Route path="Tasks" element={<Tasks loggedState={loggedState} />} />
             <Route path="Focus" element={<Focus loggedState={loggedState} />} />
             <Route path="Analytics" element={<Analytics loggedState={loggedState} />} />
             <Route path='*' element={<NoPage />} />
@@ -51,7 +46,7 @@ const App = () => {
         </div>
         
       </div>
-      <div>
+      <div className='bottom-0'>
         <Footer loggedState={loggedState} />
       </div>
     </>

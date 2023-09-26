@@ -51,16 +51,19 @@ function FooterComponentLogged() {
                 spacing={4}
                 justify={{ base: 'center', md: 'space-between' }}
                 align={{ base: 'center', md: 'center' }}>
-                <Stack direction={'row'} spacing={6}>
+                <Stack direction={'row'} spacing={{ base: 3, sm: 6 }}>
                     <Avatar
                         size={'sm'}
                         src={mountain}
                     />
-                    <Box as="a" href={'/'}>
+                    <Box as="a" href={'/tasks'}>
                         Tasks
                     </Box>
                     <Box as="a" href={'/focus'}>
                         Focus
+                    </Box>
+                    <Box as="a" href={'/'}>
+                        Progress
                     </Box>
                     <Box as="a" href={'/analytics'}>
                         Analytics

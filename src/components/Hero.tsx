@@ -23,8 +23,8 @@ export const signOutWithGoogle = async (props: any) => {
         // sessionStorage.removeItem("uid")
         // sessionStorage.removeItem("imageURL")
         // sessionStorage.removeItem("XPAmount")
-        
         sessionStorage.clear()
+
         props.setLoggedState(false)
     }) .catch((error) => {
         console.log(error)
@@ -63,10 +63,7 @@ export const signInWithGoogle = async (props:any) => {
 
 const Hero = (props: any) => {
 
-
     const resultRef = useRef(null);
-    // console.log(resultRef.current)
-
 
     return (
         <>
@@ -74,7 +71,6 @@ const Hero = (props: any) => {
 
             <Flex>
                 {/* {<Hero2nd resultRef={resultRef} />} */}
-
                 {/* This is not the proper way but above doesnt work for some reason */}
                 {Hero2nd(resultRef, props)}
 

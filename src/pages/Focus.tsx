@@ -1,13 +1,13 @@
 //import React from 'react'
 import FocusMode from '../components/FocusMode'
-import { unAuthRedirect } from '../tsxFunctions'
+import Unauthorised from './Unauthorised'
 
 
 const Focus = (props: any) => {
 
   return (
     <div>
-      {!props.loggedState ? unAuthRedirect() : <FocusMode />}
+      {!props.loggedState ? <Unauthorised /> : <FocusMode />}
     </div>
   )
 }

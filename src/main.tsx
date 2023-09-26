@@ -16,17 +16,3 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   </ChakraProvider>
 
 )
-
-{/* <ChakraProvider theme={theme}>
-<React.StrictMode>
-  <BrowserRouter>
-    <App />
-  </BrowserRouter>
-</React.StrictMode>
-</ChakraProvider>
-
-<React.StrictMode>
-<BrowserRouter>
-  <App />
-</BrowserRouter>
-</React.StrictMode> */}

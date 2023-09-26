@@ -1,360 +1,3 @@
-// import { DeleteIcon, EditIcon, StarIcon } from '@chakra-ui/icons'
-// import {
-//   Alert, AlertDescription, AlertIcon, AlertTitle, Box, Button, CloseButton, Container, Divider, Flex, FormControl, FormLabel, HStack, Icon, IconButton, Input,
-//   Modal,
-//   ModalBody,
-//   ModalCloseButton,
-//   ModalContent,
-//   ModalFooter,
-//   ModalOverlay,
-//   Progress,
-//   Radio,
-//   RadioGroup,
-//   Stack, Tab, TabList,
-//   TabPanel, TabPanels, Tabs, Text, Textarea, VStack, useColorModeValue, useDisclosure,
-// } from '@chakra-ui/react'
-// import { useRef, useState } from 'react'
-
-// const TaskList = () => {
-
-//   // ~~~~~~~~~~~~~~~~~~~ hooks ~~~~~~~~~~~~~~~~~~~~~
-//   const [incompleteTaskList, setIncompleteTaskList] = useState<any>([])
-//   const [completeTaskList, setCompleteTaskList] = useState<any>([])
-//   const [input, setInput] = useState('')
-//   const [description, setDescription] = useState('')
-//   const [editInput, setEditInput] = useState('')
-//   const [editID, setEditID] = useState('')
-//   const [radioDifficulty, setRadioDifficulty] = useState('')
-//   const [displayAlert, setDisplayAlert] = useState(false)
-//   const [alertText, setAlertText] = useState('')
-//   const [XP, setXP] = useState(0)
-//   // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-
-//   // ~~~~~~~~~~~~~~~~ modal hook ~~~~~~~~~~~~~~~~~~~
-//   const { isOpen, onOpen, onClose } = useDisclosure()
-
-
-//   // ~~~~~~~~~~~~~~~ input consts ~~~~~~~~~~~~~~~~~~
-//   const inputLengthMax = 70
-//   const descriptionLengthMax = 250
-//   // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-
-
-//   const addTask = (event: any) => {
-//     event.preventDefault()
-
-//     if (radioDifficulty === '') {
-//       setAlertText('You must choose a difficulty.')
-//       setDisplayAlert(true)
-//       return
-//     } else {
-//       setDisplayAlert(false)
-//     }
-
-//     const setID = Math.floor(Math.random() * (1000000 - 10) ) + 10
-//     console.log('id:   ' + setID)
-
-//     if (input.length > 0 && input.length < inputLengthMax && description.length < descriptionLengthMax) {
-//       setIncompleteTaskList((prevState: any) => [...prevState, { input, difficulty: radioDifficulty, id: setID, description }])
-//       setDisplayAlert(false)
-//     }
-
-//     if (input.length > inputLengthMax) {
-//       setAlertText('Too many title characters! Please input fewer characters.')
-//       setDisplayAlert(true)
-//     }
-
-//     if (input.length === 0) {
-//       setAlertText('Not enough title characters! Please input at least one character.')
-//       setDisplayAlert(true)
-//     }
-
-//     if (description.length > descriptionLengthMax) {
-//       setAlertText('Too many description characters! Please input fewer characters.')
-//       setDisplayAlert(true)
-//     }
-
-
-//     console.log("task list :  " +  JSON.stringify(incompleteTaskList))
-
-//     setInput('')
-//     setDescription('')
-//     setRadioDifficulty('')
-//   }
-
-  
-//   const completeTask = (input: any, index: any, difficulty:any, id:any, description: any) => {
-
-//     setCompleteTaskList((prevState: any) => [...prevState, { input, difficulty: difficulty, id: id, description }])
-//     // setCompleteTaskList((prevState: any) => [...prevState, { task, difficulty: difficulty}])
-
-//     deleteTask(index)
-
-//     // incompleteTaskList[index] = { isChecked: false }
-
-//     if (difficulty === 'red.500') {
-//       setXP(XP + 30)
-//     } else if (difficulty === 'orange.500') {
-//       setXP(XP + 10)
-//     } else  {
-//       setXP(XP + 5)
-//     }
-//   }
-
-
-//   const editTask = (id: any, event:any) => {
-//     event.preventDefault();
-
-
-//     console.log("editing  :  " + id + "  :  " + editInput)
-
-//     if (editInput.length > 0 && editInput.length < 50) {
-//       const arrCopy = [...incompleteTaskList]
-      
-//       let index = arrCopy.findIndex(function(task) {
-//         if (id === task.id) return true
-//       })
-
-//       console.log(`index :  ${index}`)
-      
-//       arrCopy[index].input = editInput
-//       setIncompleteTaskList(arrCopy)
-//       setDisplayAlert(false)
-//     }
-
-//     if (editInput.length > 50) {
-//       setDisplayAlert(true)
-//     }
-
-//     setEditInput('')
-//     setEditID('')
-//     onClose()
-//   }
-
-
-//   const cancelEdit = () => {
-//     setEditInput('')
-//     onClose()
-//   }
-
-
-//   const deleteTask = (index: any) => {
-//     const arrCopy = [...incompleteTaskList]
-//     arrCopy.splice(index, 1)
-//     setIncompleteTaskList(arrCopy)
-//   }
-
-
-//   function triggerDisplayAlert(text: string) {
-
-//     return displayAlert ? (
-//       <Alert status='error' mt={4} color={useColorModeValue('red', 'red.200')}>
-//         <AlertIcon />
-//         <Box>
-//           <AlertTitle>Error!</AlertTitle>
-//           <AlertDescription w={'100%'}>
-//             {text}
-//             {/* Too many title characters! Please input fewer characters. */}
-//           </AlertDescription>
-//         </Box>
-//         <CloseButton
-//           alignSelf='flex-start'
-//           position='absolute'
-//           right={1}
-//           top={1}
-//           onClick={() => setDisplayAlert(false)}
-//         />
-//       </Alert>
-//     ) : (
-//       <div></div>
-//     )
-//   }
-
-//   const EditModal = () => {
-
-//     const initialRef = useRef(null)
-
-//     return (
-//       <>
-
-//         {/* <IconButton bg={'yellow.500'} icon={<EditIcon />} aria-label={""} onClick={onOpen} /> */}
-
-//         <Modal
-//           initialFocusRef={initialRef}
-//           isOpen={isOpen}
-//           onClose={() => cancelEdit()}
-//           isCentered
-//           preserveScrollBarGap
-//           motionPreset='none'
-//         >
-//           <ModalOverlay />
-//           <ModalContent mx={8} bg={useColorModeValue('bgLight.100', 'bgDark.900')}>
-//             <ModalCloseButton />
-//             <ModalBody py={4}>
-//               <FormControl>
-//                 <FormLabel textAlign={'center'}>Update Task</FormLabel>
-//                 <form onSubmit={(event) => editTask(editID, event)}>
-//                   <Input ref={initialRef} placeholder='Update task' value={editInput} onChange={event => setEditInput(event.target.value)} />
-//                 </form>
-//               </FormControl>
-//             </ModalBody>
-
-//             <ModalFooter justifyContent={'center'}>
-//               <Button colorScheme='blue' w={20} mr={4} onClick={(event) => editTask(editID, event)}>
-//                 Save
-//               </Button>
-//               <Button w={20} onClick={() => cancelEdit()}>Cancel</Button>
-//             </ModalFooter>
-//           </ModalContent>
-//         </Modal>
-//       </>
-//     )
-//   }
-
-//   const DifficultyCircle = (props: any) => (
-//     <Icon viewBox='0 0 200 200' {...props}>
-//       <path
-//         fill='currentColor'
-//         d='M 100, 100 m -75, 0 a 75,75 0 1,0 150,0 a 75,75 0 1,0 -150,0'
-//       />
-//     </Icon>
-//   )
-
-//   const addAndEdit = (id:any) => {
-//     if (editID === '') {
-//       setEditID(id)
-//     }
-//     onOpen()
-//   }
-
-
-
-//   return (
-//     <Box bg={{ base: useColorModeValue('rgba(255,255,255,0.1)', 'rgba'), md: useColorModeValue('rgba(255,255,255,0)', 'rgba(0,0,0,0)') }}>
-
-//       <div className='text-white flex justify-center text-center mt-6'>
-//         <p>XP BAR</p>
-//       </div>
-//       <Flex color={'red'} w={'100%'} justifyContent={'center'}>
-//         <Progress colorScheme='pink' value={XP} w={700} hasStripe isAnimated max={100} />
-//       </Flex>
-
-//       <Flex w='100%' h='100vh' flexDir='column' mt='5%' color={useColorModeValue('bgDark.900', 'white')}>
-//         <Container w='100%' maxH={{ base: '100%', lg: 1800 }} bg={useColorModeValue('rgba(255,255,255,0.3)', 'rgba(0,0,0,0.6)')} rounded={{ base: '', lg: '3xl' }} p={8} maxW={'5xl'}>
-//           <Text fontWeight='700' fontSize='30' textAlign='center'>Tasks</Text>
-//           <Divider borderWidth={'1px'} />
-//           <form onSubmit={addTask}>
-//             <FormControl>
-//               <Flex justifyContent={'center'} color={useColorModeValue('bgDark.900', 'white')} mt={4}>
-//                 <VStack>
-//                   <Text fontWeight='700' fontSize='20' textAlign='center'>Difficulty</Text>
-//                   <RadioGroup onChange={setRadioDifficulty} value={radioDifficulty}>
-//                     <Stack spacing={20} direction='row' mt={2}>
-//                       <Radio colorScheme='green' value='green.500'>
-//                         Easy
-//                       </Radio>
-//                       <Radio colorScheme='orange' value='orange.500'>
-//                         Medium
-//                       </Radio>
-//                       <Radio colorScheme='red' value='red.500'>
-//                         Hard
-//                       </Radio>
-//                     </Stack>
-//                   </RadioGroup>
-//                 </VStack>
-//               </Flex>
-//               <Flex mt='2%'>
-//                 {/* variant='flushed' */}
-//                 <Input placeholder='Title' w='100%' value={input} color={useColorModeValue('bgDark.900', 'white')} _placeholder={{ color: 'inherit' }} onChange={event => setInput(event.target.value)} />
-//                 <Button ml='5' bg='blue.400' onClick={addTask}>Add task</Button>
-//               </Flex>
-//               <Textarea mt={4} color={useColorModeValue('bgDark.900', 'white')} _placeholder={{ color: 'inherit' }} placeholder='Description (optional)' resize={'none'} value={description} onChange={event => setDescription(event.target.value)} />
-//               {triggerDisplayAlert(alertText)}
-//             </FormControl>
-//           </form>
-//           <Divider borderWidth={'1px'} mt={4} />
-//           <Tabs mt='2%' w='100%' align='center' isFitted>
-//             <TabList>
-//               <Tab>Active</Tab>
-//               <Tab>Completed</Tab>
-//               {/* <Tab>Expired</Tab> */}
-//             </TabList>
-//             {/* <TabPanels> */}
-//             <TabPanels overflowY={'scroll'} overscrollBehavior={'outside'} maxH={{ base: '60vh', lg: 1400 }}>
-//               <TabPanel>
-//                 {incompleteTaskList.map((task: any, index: number) => (
-
-//                   <VStack mt={2}>
-//                     <Flex flexDir={'row'} mb={2} w='100%'>
-//                       <Container w={'100%'} textAlign={'left'} maxW={'100%'}>
-
-//                         <HStack>
-//                           <DifficultyCircle color={task.difficulty} />
-//                           <Container w={'100%'} textAlign={'left'} maxW={'100%'} wordBreak={'break-all'}>
-//                             {task.input}
-//                           </Container>
-//                         </HStack>
-
-//                         <Container w={'100%'} textAlign={'left'} maxW={'100%'} wordBreak={'break-all'} mt={2}>
-//                           {task.description}
-//                         </Container>
-
-//                         <HStack w={'100%'} my={2} mt={4} justifyContent={'center'} spacing={{ base: '10px', lg: '10px' }} h={8}>
-//                           <IconButton aria-label={''} bg={'green.600'} icon={<StarIcon />} onClick={() => completeTask(task.input, index, task.difficulty, task.id, task.description)} ></IconButton>
-//                           <Divider orientation='vertical' />
-                          
-//                           <IconButton bg={'yellow.500'} icon={<EditIcon />} aria-label={""} onClick={() => addAndEdit(task.id)} />
-//                           <EditModal />
-
-//                           <Divider orientation='vertical' />
-//                           <IconButton aria-label={''} bg={'red.600'} icon={<DeleteIcon />} onClick={() => deleteTask(index)} ></IconButton>
-//                         </HStack>
-//                       </Container>
-//                     </Flex>
-//                     <Divider />
-//                   </VStack>
-
-//                 ))}
-//               </TabPanel>
-//               <TabPanel>
-//                 {completeTaskList.map((task: any) => (
-//                   <>
-//                     <VStack>
-//                       <Flex w={'100%'} flexDir={'row'} my={4}>
-//                         <HStack>
-//                           <DifficultyCircle color={task.difficulty} />
-//                           <Container w={'100%'} textAlign={'left'} maxW={'100%'} wordBreak={'break-all'}>
-//                             {task.input}
-//                           </Container>
-//                         </HStack>
-//                       </Flex>
-//                       <Container w={'100%'} textAlign={'left'} maxW={'100%'} wordBreak={'break-all'} mt={2}>
-//                         {task.description}
-//                       </Container>
-//                     </VStack>
-//                     <Divider />
-//                   </>
-//                 ))}
-//               </TabPanel>
-//               {/* <TabPanel>
-//                   Expired here
-//                 </TabPanel> */}
-//             </TabPanels>
-//           </Tabs>
-//         </Container>
-//       </Flex>
-
-//       <div className="lg:h-screen"></div>
-//     </Box>
-//   )
-// }
-
-// export default TaskList
-
-
-
 import { CheckIcon, DeleteIcon, EditIcon } from "@chakra-ui/icons";
 
 import {
@@ -380,7 +23,6 @@ import {
   ModalContent,
   ModalFooter,
   ModalOverlay,
-  Progress,
   Radio,
   RadioGroup,
   Stack,
@@ -394,10 +36,10 @@ import {
   VStack,
   useColorModeValue,
   useDisclosure,
-} from "@chakra-ui/react";
+} from "@chakra-ui/react"
 
-import { useEffect, useRef, useState } from "react";
-import { firestoreDB, updateXPAmount } from "../config/config";
+import { useEffect, useRef, useState } from "react"
+import { firestoreDB, getXPFromDatabase, updateXPAmount } from "../config/config"
 import {
   addDoc,
   collection,
@@ -407,49 +49,49 @@ import {
   query,
   updateDoc,
   where,
-} from "firebase/firestore";
-import { readDisplayName, readEmail, readImageURL, readUID, readXPAmount } from "../functions";
-import Mountain from "./Mountain";
+} from "firebase/firestore"
+import { readDisplayName, readEmail, readImageURL, readUID } from "../functions"
+import XPBar from "./XPBar";
 
 const TaskList = () => {
   // ~~~~~~~~~~~~~~~~~~~ hooks ~~~~~~~~~~~~~~~~~~~~~
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(false)
   // Just use one list
-  const [taskListItems, setTaskListItems] = useState<any>([]);
+  const [taskListItems, setTaskListItems] = useState<any>([])
   // const [incompleteTaskList, setIncompleteTaskList] = useState<any>([]);
   // const [completeTaskList, setCompleteTaskList] = useState<any>([]);
-  const [input, setInput] = useState("");
-  const [description, setDescription] = useState("");
-  const [editInput, setEditInput] = useState("");
-  const [editID, setEditID] = useState("");
-  const [radioDifficulty, setRadioDifficulty] = useState("");
-  const [displayAlert, setDisplayAlert] = useState(false);
-  const [alertText, setAlertText] = useState("");
-  const [XP, setXP] = useState(0);
+  const [input, setInput] = useState("")
+  const [description, setDescription] = useState("")
+  const [editInput, setEditInput] = useState("")
+  const [editID, setEditID] = useState("")
+  const [radioDifficulty, setRadioDifficulty] = useState("")
+  const [displayAlert, setDisplayAlert] = useState(false)
+  const [alertText, setAlertText] = useState("")
+  const [XP, setXP] = useState(0)
   // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
   // ~~~~~~~~~~~~~~~~ modal hook ~~~~~~~~~~~~~~~~~~~
-  const { isOpen, onOpen, onClose } = useDisclosure();
+  const { isOpen, onOpen, onClose } = useDisclosure()
 
   // ~~~~~~~~~~~~~~~ input consts ~~~~~~~~~~~~~~~~~~
-  const inputLengthMax = 70;
-  const descriptionLengthMax = 250;
+  const inputLengthMax = 70
+  const descriptionLengthMax = 250
   // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
   const addTask = async (event: any) => {
-    event.preventDefault();
+    event.preventDefault()
 
     if (radioDifficulty === "") {
-      setAlertText("You must choose a difficulty.");
-      setDisplayAlert(true);
-      return;
+      setAlertText("You must choose a difficulty.")
+      setDisplayAlert(true)
+      return
     } else {
-      setDisplayAlert(false);
+      setDisplayAlert(false)
     }
 
-    setLoading(true);
+    setLoading(true)
 
-    const setID = Math.floor(Math.random() * (1000000 - 10)) + 10;
+    const setID = Math.floor(Math.random() * (1000000 - 10)) + 10
     // console.log("id:   " + setID);
 
     if (
@@ -459,7 +101,7 @@ const TaskList = () => {
     ) {
       try {
         // Access the 'tasks' collection in Firestore
-        const tasksCollection = collection(firestoreDB, "tasks");
+        const tasksCollection = collection(firestoreDB, "tasks")
 
         // Add the task to Firestore
         const docRef = await addDoc(tasksCollection, {
@@ -469,11 +111,11 @@ const TaskList = () => {
           description,
           status: "pending",
           username: readEmail(),
-        });
-        setDisplayAlert(false);
+        })
+        setDisplayAlert(false)
 
         // Log the Firestore document reference
-        console.log("Document written with ID: ", docRef.id);
+        console.log("Document written with ID: ", docRef.id)
 
         // Add the task to your local state or update it as needed
         setTaskListItems((prevState: any) => [
@@ -485,9 +127,9 @@ const TaskList = () => {
             description,
             status: "pending",
           },
-        ]);
+        ])
       } catch (error) {
-        console.error("Error adding task to Firestore: ", error);
+        console.error("Error adding task to Firestore: ", error)
       }
     }
 
@@ -507,30 +149,30 @@ const TaskList = () => {
       setDisplayAlert(true)
     }
 
-    setInput("");
-    setDescription("");
-    setRadioDifficulty("");
-    setLoading(false);
-  };
+    setInput("")
+    setDescription("")
+    setRadioDifficulty("")
+    setLoading(false)
+  }
 
   const setXpBar = (difficulty: string) => {
     let totalXP: any = sessionStorage.getItem("XPAmount")
     let addedXP = 0
 
     if (difficulty === "red.500") {
-      setXP(XP + 30);
+      setXP(XP + 30)
       addedXP = 30
     } else if (difficulty === "orange.500") {
-      setXP(XP + 10);
+      setXP(XP + 10)
       addedXP = 10
     } else {
-      setXP(XP + 5);
+      setXP(XP + 5)
       addedXP = 5
     }
 
     sessionStorage.setItem("XPAmount", (parseInt(totalXP) + addedXP).toString())
     updateXPAmount(readUID() as string, readDisplayName() as string, readEmail() as string, readImageURL() as string)
-  };
+  }
 
   const completeTask = async (
     input: any,
@@ -539,23 +181,23 @@ const TaskList = () => {
   ) => {
     try {
       // Update the task status to "complete" in Firestore
-      const tasksCollection = collection(firestoreDB, "tasks"); // Make sure it matches your Firestore collection name
+      const tasksCollection = collection(firestoreDB, "tasks") // Make sure it matches your Firestore collection name
       const taskQuery = query(
         tasksCollection,
         where("input", "==", input), // Assuming 'input' is a unique identifier for your tasks
         where("difficulty", "==", difficulty), // Include other unique identifiers if needed
         where("id", "==", id)
       );
-      const taskSnapshot = await getDocs(taskQuery);
+      const taskSnapshot = await getDocs(taskQuery)
 
       if (!taskSnapshot.empty) {
-        const taskDoc = taskSnapshot.docs[0]; // Assuming there's only one matching task
-        const taskRef = doc(firestoreDB, "tasks", taskDoc.id);
+        const taskDoc = taskSnapshot.docs[0] // Assuming there's only one matching task
+        const taskRef = doc(firestoreDB, "tasks", taskDoc.id)
 
         // Update the task status to "complete"
-        await updateDoc(taskRef, { status: "complete" });
+        await updateDoc(taskRef, { status: "complete" })
       } else {
-        console.log("Task not found in Firestore");
+        console.log("Task not found in Firestore")
       }
 
       setTaskListItems((prevState: any) => {
@@ -565,17 +207,17 @@ const TaskList = () => {
             return {
               ...task,
               status: "complete",
-            };
+            }
           }
-          return task;
-        });
-      });
+          return task
+        })
+      })
 
-      setXpBar(difficulty);
+      setXpBar(difficulty)
     } catch (error) {
-      console.error("Error updating task status in Firestore:", error);
+      console.error("Error updating task status in Firestore:", error)
     }
-  };
+  }
 
   const deleteTask = async (
     input: any,
@@ -591,24 +233,24 @@ const TaskList = () => {
         where("input", "==", input), // Assuming 'input' is a unique identifier for your tasks
         where("difficulty", "==", difficulty), // Include other unique identifiers if needed
         where("id", "==", id)
-      );
-      const taskSnapshot = await getDocs(taskQuery);
+      )
+      const taskSnapshot = await getDocs(taskQuery)
 
       if (!taskSnapshot.empty) {
         const taskDoc = taskSnapshot.docs[0]; // Assuming there's only one matching task
-        const taskRef = doc(firestoreDB, "tasks", taskDoc.id);
+        const taskRef = doc(firestoreDB, "tasks", taskDoc.id)
 
-        const arrCopy = [...taskListItems];
-        arrCopy.splice(index, 1);
-        setTaskListItems(arrCopy);
+        const arrCopy = [...taskListItems]
+        arrCopy.splice(index, 1)
+        setTaskListItems(arrCopy)
 
 
         // Delete the task from firestore
-        await deleteDoc(taskRef);
+        await deleteDoc(taskRef)
         document.location.reload()
-        console.log("Document deleted with ID: ", id);
+        console.log("Document deleted with ID: ", id)
       } else {
-        console.log("Task not found in Firestore");
+        console.log("Task not found in Firestore")
       }
 
       // setTaskListItems((prevState: any) => {
@@ -624,31 +266,31 @@ const TaskList = () => {
       // });
 
     } catch (error) {
-      console.error("Error deleting task in Firestore:", error);
+      console.error("Error deleting task in Firestore:", error)
     }
-  };
+  }
 
   useEffect(() => {
     // Access the 'tasks' collection in Firestore
-    const tasksCollection = collection(firestoreDB, "tasks");
+    const tasksCollection = collection(firestoreDB, "tasks")
 
     // Define the username to filter tasks
-    const usernameToFilter = readEmail(); // Replace with the actual username
+    const usernameToFilter = readEmail() // Replace with the actual username
 
     // Fetch all tasks from Firestore
     const fetchData = async () => {
       try {
         const querySnapshot = await getDocs(
           query(tasksCollection, where("username", "==", usernameToFilter))
-        );
+        )
         const taskData: {
-          [x: string]: string;
-          id: string;
+          [x: string]: string
+          id: string
         }[] = [];
         querySnapshot.forEach((doc) => {
-          taskData.push({ id: doc.id, ...doc.data() });
+          taskData.push({ id: doc.id, ...doc.data() })
         });
-        setTaskListItems(taskData);
+        setTaskListItems(taskData)
 
         // Calculate total XP based on task difficulties
         // let totalXP = 0;
@@ -676,54 +318,22 @@ const TaskList = () => {
         //     }
         // })
 
-        let totalXP: number = readXPAmount()
+        let totalXP: number = await getXPFromDatabase(readUID() as string)
 
         // Set the XP bar state
-        setXP(totalXP);
+        setXP(totalXP)
 
       } catch (error) {
-        console.error("Error fetching tasks from Firestore:", error);
+        console.error("Error fetching tasks from Firestore:", error)
       }
-    };
+    }
 
-    fetchData(); // Fetch tasks when the component mounts
+    fetchData() // Fetch tasks when the component mounts
 
     return () => {
       // Cleanup logic if needed (e.g., unsubscribing from real-time updates)
-    };
-  }, []); // The empty dependency array ensures this effect runs once on mount
-
-
-
-  // const editTask = (id: any, event: any) => {
-  //   event.preventDefault();
-
-  //   console.log("editing  :  " + id + "  :  " + editInput);
-
-  //   if (editInput.length > 0 && editInput.length < inputLengthMax) {
-  //     const arrCopy = [...taskListItems];
-
-  //     let index = arrCopy.findIndex(function (task) {
-  //       if (id === task.id) return true;
-  //     });
-
-  //     console.log(`index :  ${index}`);
-
-  //     arrCopy[index].input = editInput;
-  //     setTaskListItems(arrCopy);
-  //     setDisplayAlert(false);
-  //   }
-
-  //   if (editInput.length > inputLengthMax) {
-  //     setAlertText('Too many title characters! Please input fewer characters.')
-  //     setDisplayAlert(true);
-  //   }
-
-  //   setEditInput("");
-  //   setEditID("");
-  //   onClose();
-  // };
-
+    }
+  }, []) // The empty dependency array ensures this effect runs once on mount
 
 
   const editTask = async (
@@ -731,25 +341,25 @@ const TaskList = () => {
     event: any,
   ) => {
     try {
-      event.preventDefault();
+      event.preventDefault()
       // Update the task input in Firestore
 
       if (editInput.length > 0 && editInput.length < inputLengthMax) {
-        const tasksCollection = collection(firestoreDB, "tasks"); // Make sure it matches your Firestore collection name
+        const tasksCollection = collection(firestoreDB, "tasks") // Make sure it matches your Firestore collection name
         const taskQuery = query(
           tasksCollection,
           where("id", "==", id)
         );
-        const taskSnapshot = await getDocs(taskQuery);
+        const taskSnapshot = await getDocs(taskQuery)
 
         if (!taskSnapshot.empty) {
-          const taskDoc = taskSnapshot.docs[0]; // Assuming there's only one matching task
-          const taskRef = doc(firestoreDB, "tasks", taskDoc.id);
+          const taskDoc = taskSnapshot.docs[0] // Assuming there's only one matching task
+          const taskRef = doc(firestoreDB, "tasks", taskDoc.id)
 
           // Update the task status to "complete"
-          await updateDoc(taskRef, { input: editInput });
+          await updateDoc(taskRef, { input: editInput })
         } else {
-          console.log("Task not found in Firestore");
+          console.log("Task not found in Firestore")
         }
 
         setTaskListItems((prevState: any) => {
@@ -759,14 +369,14 @@ const TaskList = () => {
               return {
                 ...task,
                 input: editInput,
-              };
+              }
             }
-            return task;
-          });
-        });
+            return task
+          })
+        })
 
-        console.log("Document edited with ID: ", id);
-        setDisplayAlert(false);
+        console.log("Document edited with ID: ", id)
+        setDisplayAlert(false)
       }
 
       if (editInput.length > inputLengthMax) {
@@ -774,18 +384,18 @@ const TaskList = () => {
         setDisplayAlert(true);
       }
 
-      setEditInput("");
-      setEditID("");
-      onClose();
+      setEditInput("")
+      setEditID("")
+      onClose()
     } catch (error) {
-      console.error("Error updating task status in Firestore:", error);
+      console.error("Error updating task status in Firestore:", error)
     }
   };
 
   const cancelEdit = () => {
-    setEditInput("");
-    onClose();
-  };
+    setEditInput("")
+    onClose()
+  }
 
   // const deleteTask = (index: any) => {
   //   const arrCopy = [...taskListItems];
@@ -814,11 +424,11 @@ const TaskList = () => {
       </Alert>
     ) : (
       <div></div>
-    );
+    )
   }
 
   const EditModal = () => {
-    const initialRef = useRef(null);
+    const initialRef = useRef(null)
 
     return (
       <>
@@ -868,8 +478,8 @@ const TaskList = () => {
           </ModalContent>
         </Modal>
       </>
-    );
-  };
+    )
+  }
 
   const DifficultyCircle = (props: any) => (
     <Icon viewBox="0 0 200 200" {...props}>
@@ -878,14 +488,14 @@ const TaskList = () => {
         d="M 100, 100 m -75, 0 a 75,75 0 1,0 150,0 a 75,75 0 1,0 -150,0"
       />
     </Icon>
-  );
+  )
 
   const addAndEdit = (id: any) => {
     if (editID === "") {
-      setEditID(id);
+      setEditID(id)
     }
-    onOpen();
-  };
+    onOpen()
+  }
 
   // console.log(taskListItems);
 
@@ -899,10 +509,9 @@ const TaskList = () => {
         </TabList>
         {/* <TabPanels> */}
         <TabPanels
-          sx={{ overflowY: "hidden" }}
           overflowY={"scroll"}
           overscrollBehavior={"outside"}
-          maxH={{ base: "60vh", lg: 1400 }}
+          maxH={{ base: "60vh", lg: "80vh" }}
         >
           <TabPanel>
             {taskListItems
@@ -1017,99 +626,32 @@ const TaskList = () => {
                 </>
               ))}
           </TabPanel>
-          {/* <TabPanel>
-        Expired here
-      </TabPanel> */}
         </TabPanels>
       </Tabs>
     ) : (
       <></>
-    );
-
-  const calculateColor = (xp: number) => {
-    // Calculate color based on XP value
-    const colors = [
-      "lightblue",
-      "darkblue",
-      "lightgreen",
-      "darkgreen",
-      "red",
-      "orange",
-    ];
-
-    if (xp > 600) return "gold";
-
-    const index = Math.floor((xp / 1000) * (colors.length - 1));
-    {console.log("this is XP in use state:  "  + XP)}
-
-    return colors[index];
-  };
+    )
 
   return (
-    <Box
-      bg={{
-        base: useColorModeValue("rgba(255,255,255,0.1)", "rgba"),
-        md: useColorModeValue("rgba(255,255,255,0)", "rgba(0,0,0,0)"),
-      }}
-    >
-      <div className="text-white flex justify-center text-center mt-6">
-        <Text
-          fontSize="xl"
-          color={calculateColor(readXPAmount())}
-          transition="color 0.2s"
-          sx={{
-            "@keyframes pulsateOpacity": {
-              "0%": {
-                opacity: 0.6,
-              },
-              "50%": {
-                opacity: 1,
-              },
-              "100%": {
-                opacity: 0.6,
-              },
-            },
-            animation: "pulsateOpacity 1s infinite",
-          }}
-        >
-          XP BAR - Level {Math.floor(readXPAmount() / 100)}
-        </Text>
-      </div>
-      <Flex color={"red"} w={"100%"} justifyContent={"center"}>
-        <Progress
-          sx={{
-            // "& > div:first-child": {
-            "& > div:first-of-type": {
-              transitionProperty: "width",
-            },
-          }}
-          colorScheme="pink"
-          value={XP % 100}
-          w={700}
-          hasStripe
-          isAnimated
-          max={100}
-        />
-      </Flex>
-
-      <Mountain xp={XP} />
-
+    <Box pb={'200px'}>
       <Flex
         w="100%"
         h="100vh"
         flexDir="column"
-        mt="5%"
+        mt={{ base: "", lg: "5%" }}
+        mb={{ base: "", lg: "10%" }}
         color={useColorModeValue("bgDark.900", "white")}
       >
         <Container
           w="100%"
-          maxH={{ base: "100%", lg: 1800 }}
           bg={useColorModeValue("rgba(255,255,255,0.3)", "rgba(0,0,0,0.6)")}
           rounded={{ base: "", lg: "3xl" }}
           p={8}
-          maxW={"5xl"}
+          maxW={{ base: "100%", lg: "70%" }}
         >
-          <Text fontWeight="700" fontSize="30" textAlign="center">
+          <XPBar />
+          <Divider borderWidth={"1px"} mt={8}/>
+          <Text fontWeight="700" fontSize="30" textAlign="center" my={4}>
             Tasks
           </Text>
           <Divider borderWidth={"1px"} />
@@ -1120,15 +662,12 @@ const TaskList = () => {
                 color={useColorModeValue("bgDark.900", "white")}
                 mt={4}
               >
-                <VStack>
-                  <Text fontWeight="700" fontSize="20" textAlign="center">
-                    Difficulty
-                  </Text>
+                <Flex>
                   <RadioGroup
                     onChange={setRadioDifficulty}
                     value={radioDifficulty}
                   >
-                    <Stack spacing={20} direction="row" mt={2}>
+                    <Stack spacing={{ base: 10, md: 20}} direction="row" my={2}>
                       <Radio colorScheme="green" value="green.500">
                         Easy
                       </Radio>
@@ -1140,7 +679,7 @@ const TaskList = () => {
                       </Radio>
                     </Stack>
                   </RadioGroup>
-                </VStack>
+                </Flex>
               </Flex>
               <Flex mt="2%">
                 {/* variant='flushed' */}
@@ -1176,6 +715,7 @@ const TaskList = () => {
                 placeholder="Description (optional)"
                 resize={"none"}
                 value={description}
+                id="description"
                 onChange={(event) => setDescription(event.target.value)}
               />
               {triggerDisplayAlert(alertText)}
@@ -1186,9 +726,9 @@ const TaskList = () => {
         </Container>
       </Flex>
 
-      <div className="lg:h-screen"></div>
+      {/* <div className="lg:h-screen"></div> */}
     </Box>
-  );
-};
+  )
+}
 
-export default TaskList;
+export default TaskList

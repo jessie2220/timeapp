@@ -15,7 +15,6 @@ const Hero2nd = (resultRef:any, props:any) => {
 
     const scrollHook = () => {
         resultRef.current.scrollIntoView({ behavior: "smooth" })
-        // console.log("weg f:   " + resultRef.current)
     }
 
   return (

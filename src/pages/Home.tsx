@@ -1,6 +1,7 @@
 //import React from 'react'
 import Hero from '../components/Hero'
-import TaskList from '../components/TaskList'
+import MountainPage from '../components/MountainPage'
+
 
 
 const Home = (props: any) => {
@@ -8,7 +9,7 @@ const Home = (props: any) => {
   return (
     <>
       <div>
-        {!props.loggedState ? <Hero setLoggedState={props.setLoggedState} /> : <TaskList />}
+        {!props.loggedState ? <Hero setLoggedState={props.setLoggedState} /> : <MountainPage />}
       </div>
     </>
   )

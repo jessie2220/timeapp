@@ -21,8 +21,8 @@ import {
   AlertDialogBody,
   AlertDialogFooter,
 } from "@chakra-ui/react"
-import { getXPFromDatabase, updateXPAmount } from "../config/config";
-import { readDisplayName, readEmail, readImageURL, readUID } from "../functions";
+import { getXPFromDatabase, updateXPAmount } from "../config/config"
+import { readDisplayName, readEmail, readImageURL, readUID } from "../functions"
 
 const CircleTimer = ({
   timerValue,
@@ -233,7 +233,7 @@ const FocusMode = () => {
           </Flex>
           </Container>
           <AlertBox />
-      <div className="h-screen"></div>
+      {/* <div className="h-screen"></div> */}
     </div>
   )
 }

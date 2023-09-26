@@ -76,9 +76,10 @@ const SideBarLink = (link: any) => {
 }
 
 const Links = [
-    { name: 'Tasks', address: '/' },
+    { name: 'Tasks', address: './tasks' },
     { name: 'Focus', address: './focus' },
-    { name: 'Analytics', address: './analytics' }
+    { name: 'Progress', address: '/' },
+    { name: 'Analytics', address: './analytics' },
 ]
 
 
@@ -155,7 +156,7 @@ const ChakraNavbarLogged = (props: any) => {
                         >
                             LOGO
                         </Button>
-                        <HStack as={'nav'} spacing={4} display={{ base: 'none', md: 'flex' }}>
+                        <HStack as={'nav'} spacing={{ base: 2, lg: 4 }} display={{ base: 'none', md: 'flex' }}>
                             {Links.map((link: any) => (
                                 <NavLink key={link.name} address={link.address}>{link.name}</NavLink>
                             ))}

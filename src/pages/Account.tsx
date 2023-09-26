@@ -1,13 +1,13 @@
 //import React from 'react'
 import AccountDisplay from "../components/AccountDisplay"
-import { unAuthRedirect } from "../tsxFunctions"
+import Unauthorised from "./Unauthorised"
 
 
 const Account = (props: any) => {
 
   return (
     <div>
-      {!props.loggedState ? unAuthRedirect() : <AccountDisplay />}
+      {!props.loggedState ? <Unauthorised /> : <AccountDisplay />}
 
     </div>
   )
