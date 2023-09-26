@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Box } from "@chakra-ui/react";
+import { Box, Text } from "@chakra-ui/react";
 import { collection, getDocs } from "firebase/firestore";
 import { firestoreDB } from "../config/config";
 import { Chart, registerables } from "chart.js";
@@ -144,8 +144,10 @@ const AnalyticsDisplay: React.FC = () => {
   }, []); // The empty dependency array ensures this effect runs once on mount
 
   return (
-    <Box mt={6}>
-      <div className="text-center font-medium">Analytics Display</div>
+    <Box mt={6} pb={'200px'}>
+      <Text fontWeight="700" fontSize="30" textAlign="center" my={4}>
+        Analytics
+      </Text>
       <div className="m-10" style={{ backgroundColor: "rgba(255, 255, 255, 0.8)" }}>
         <Bar
           data={taskData.barData}
@@ -162,7 +164,7 @@ const AnalyticsDisplay: React.FC = () => {
         />
       </div>
 
-      <div className="h-screen"></div>
+      {/* <div className="h-screen"></div> */}
     </Box>
   );
 };

@@ -56,10 +56,7 @@ import XPBar from "./XPBar";
 const TaskList = () => {
   // ~~~~~~~~~~~~~~~~~~~ hooks ~~~~~~~~~~~~~~~~~~~~~
   const [loading, setLoading] = useState(false)
-  // Just use one list
   const [taskListItems, setTaskListItems] = useState<any>([])
-  // const [incompleteTaskList, setIncompleteTaskList] = useState<any>([]);
-  // const [completeTaskList, setCompleteTaskList] = useState<any>([]);
   const [input, setInput] = useState("")
   const [description, setDescription] = useState("")
   const [editInput, setEditInput] = useState("")
@@ -633,18 +630,21 @@ const TaskList = () => {
     )
 
   return (
-    <Box pb={'200px'}>
+    <Box
+      pb={'200px'}
+      bg={{ base: useColorModeValue("rgba(255,255,255,0.3)", "rgba(0,0,0,0.6)"), lg: useColorModeValue("rgba(0,0,0,0)", "rgba(0,0,0,0)")}}
+      >
       <Flex
         w="100%"
         h="100vh"
         flexDir="column"
         mt={{ base: "", lg: "5%" }}
-        mb={{ base: "", lg: "10%" }}
+        mb={{ base: "", lg: "15%" }}
         color={useColorModeValue("bgDark.900", "white")}
       >
         <Container
           w="100%"
-          bg={useColorModeValue("rgba(255,255,255,0.3)", "rgba(0,0,0,0.6)")}
+          bg={{ base: '', lg: useColorModeValue("rgba(255,255,255,0.3)", "rgba(0,0,0,0.6)")}}
           rounded={{ base: "", lg: "3xl" }}
           p={8}
           maxW={{ base: "100%", lg: "70%" }}

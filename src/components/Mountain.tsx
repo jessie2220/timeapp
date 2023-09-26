@@ -9,7 +9,7 @@ import character from "../assets/game1.png";
 import { readXPAmount } from "../functions";
 
 const Img = styled.img`
-  border-radius: 50%;
+  border-radius: 10%;
   transition: transform 0.5s ease;
 `;
 
@@ -25,7 +25,6 @@ function Mountain() {
   const [personVerticalPosition, setPersonVerticalPosition] = useState(0)
   const [personHorizontalPosition, setPersonHorizontalPosition] = useState(0)
   const xp = readXPAmount()
-
 
   useEffect(() => {
     // Calculate the vertical position to move the person up
@@ -47,7 +46,7 @@ function Mountain() {
   }
 
   const mountainStyle: React.CSSProperties = {
-    width: "600px",
+    width: "500px",
   }
 
   return (

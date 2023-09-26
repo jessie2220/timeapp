@@ -20,6 +20,7 @@ import {
   AlertDialogHeader,
   AlertDialogBody,
   AlertDialogFooter,
+  Text,
 } from "@chakra-ui/react"
 import { getXPFromDatabase, updateXPAmount } from "../config/config"
 import { readDisplayName, readEmail, readImageURL, readUID } from "../functions"
@@ -84,20 +85,18 @@ const CircleTimer = ({
 
   return (
     <div>
-      <p className="text-xl text-black">Focus Mode</p>
-      <p>Earn Some XP by focusing</p>
       <Box textAlign="center" mt={4}>
         <CircularProgress
           value={(timerValue - timeLeft) * (100 / timerValue)}
           color="purple.400"
-          trackColor= {useColorModeValue('white', 'bgDark.900')}
+          trackColor= {useColorModeValue('bgDark.900', 'white')}
           size= "400px"
           thickness="4px"
         >
-          <CircularProgressLabel>{secondsToMinutes(timeLeft)}</CircularProgressLabel>
+          <CircularProgressLabel color={useColorModeValue('bgDark.900', 'white')}>{secondsToMinutes(timeLeft)}</CircularProgressLabel>
         </CircularProgress>
       </Box>
-      <Stack justifyContent="center" direction={{base: "column", sm: "row"}} mt={16}>
+      <Stack justifyContent="center" direction={{base: "column", sm: "row"}} my={8}>
         {!isRunning ?
 
           timeLeft ?
@@ -105,7 +104,7 @@ const CircleTimer = ({
               Start
             </Button>
             :
-            <Button onClick={resetTimer} disabled={isRunning} colorScheme="purple" w={40}>
+            <Button onClick={resetTimer} disabled={isRunning} colorScheme="green" w={40}>
               Reset
             </Button>
 
@@ -191,50 +190,78 @@ const FocusMode = () => {
   }
 
   return (
-    <div className="mx-auto text-center flex flex-col justify-center text-white">
-        <div className="flex justify-center p-10 mx-auto text-center">
-          <ul>
-            <li>
-              <CircleTimer
-                timerValue={value * 60}
-                onTimerComplete={handleTimerComplete}
-              />
-            </li>
-          </ul>
-        </div>
-        <p>Set time in minutes</p>
-        <Container mt={4}>
-          <Flex w="100%" color="white">
-            <Slider
-              flex="1"
-              focusThumbOnChange={false}
-              value={value}
-              onChange={handleChange}
-              max={maxMinutes}
-              min={minMinutes}
-            >
-                <SliderMark value={5} mt={6} ml={-2.5} fontSize={"sm"}>
+    <Box
+      bg={{ base: useColorModeValue("rgba(255,255,255,0.3)", "rgba(0,0,0,0.6)"), lg: useColorModeValue("rgba(0,0,0,0)", "rgba(0,0,0,0)") }}
+    >
+      <Flex
+        w="100%"
+        h="100vh"
+        flexDir="column"
+        mt={{ base: "", lg: "5%" }}
+        color={useColorModeValue("bgDark.900", "white")}
+      >
+        <Container
+          w="100%"
+          bg={{ base: '', lg: useColorModeValue("rgba(255,255,255,0.3)", "rgba(0,0,0,0.6)") }}
+          rounded={{ base: "", lg: "3xl" }}
+          pb={16}
+          maxW={{ base: "100%", lg: "50%" }}
+        >
+          <div className="mx-auto text-center flex flex-col justify-center text-white">
+
+            <Text fontWeight="700" fontSize="30" textAlign="center" color={useColorModeValue("bgDark.900", "bgLight.100")} my={4}>
+              Focus Mode
+            </Text>
+
+            <p>Info icon</p>
+
+            <CircleTimer
+              timerValue={value * 60}
+              onTimerComplete={handleTimerComplete}
+            />
+
+
+            <Text fontWeight="400" fontSize="20" textAlign="center" color={useColorModeValue("bgDark.900", "bgLight.100")} mt={6}>
+              Set time in minutes
+            </Text>
+
+            <Container>
+              <Flex w="100%" color="white">
+                <Slider
+                  flex="1"
+                  focusThumbOnChange={false}
+                  value={value}
+                  onChange={handleChange}
+                  max={maxMinutes}
+                  min={minMinutes}
+                  colorScheme="green"
+                  color={useColorModeValue("bgDark.900", "bgLight.100")}
+                >
+                  <SliderMark value={5} mt={6} ml={-2.4} fontSize={"sm"}>
                     5
-                </SliderMark>
-                <SliderMark value={30} mt={6} ml={-2.5} fontSize={"sm"}>
+                  </SliderMark>
+                  <SliderMark value={30} mt={6} ml={-2.5} fontSize={"sm"}>
                     30
-                </SliderMark>
-                <SliderMark value={60} mt={6} ml={-2.5} fontSize={"sm"}>
+                  </SliderMark>
+                  <SliderMark value={60} mt={6} ml={-2.5} fontSize={"sm"}>
                     60
-                </SliderMark>
-                <SliderMark value={90} mt={6} ml={-2.5} fontSize={"sm"}>
+                  </SliderMark>
+                  <SliderMark value={90} mt={6} ml={-2.5} fontSize={"sm"}>
                     90
-                </SliderMark>
-              <SliderTrack>
-                <SliderFilledTrack />
-              </SliderTrack>
-              <SliderThumb fontSize="sm" boxSize="32px" children={value} color={useColorModeValue('textLight.100', 'textDark.900')} bg= {useColorModeValue('white', 'bgDark.900')} />
-            </Slider>
-          </Flex>
-          </Container>
-          <AlertBox />
-      {/* <div className="h-screen"></div> */}
-    </div>
+                  </SliderMark>
+                  <SliderTrack bgColor={useColorModeValue("bgDark.900", "")}>
+                    <SliderFilledTrack />
+                  </SliderTrack>
+                  <SliderThumb fontSize="sm" boxSize="32px" children={value} color={useColorModeValue('textDark.900', 'bgDark.900')} bg={useColorModeValue('bgDark.900', 'white')} />
+                </Slider>
+              </Flex>
+            </Container>
+            <AlertBox />
+            {/* <div className="h-screen"></div> */}
+          </div>
+        </Container>
+      </Flex>
+    </Box>
   )
 }
 
