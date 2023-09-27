@@ -1,9 +1,6 @@
 // import React from 'react'
 
 import { Box, Flex, Progress, useColorModeValue } from "@chakra-ui/react"
-import { readUID } from "../functions"
-import { useEffect, useState } from "react"
-import { getXPFromDatabase } from "../config/config"
 
 const calculateColor = (xp: number) => {
     // Calculate color based on XP value
@@ -11,72 +8,58 @@ const calculateColor = (xp: number) => {
         // useColorModeValue("red", "purple"),
         // "rgba(0,0,0,1)",
         "gray",
+        "beige",
         "azure",
         "lightgreen",
         "ForestGreen",
-        "deepskyblue",
+        "darkturquoise",
         "dodgerblue",
-        "fuchsia",
         "darkviolet",
+        "fuchsia",
         "crimson",
     ]
 
-    if (xp > 1000) return "gold";
+    if (xp >= 1000) return "gold";
 
-    const index = Math.floor((xp / 1000) * (colors.length - 1))
+    const index = Math.floor(xp / 100)
 
     return colors[index]
 }
 
 const calculateLevel = ( xp: number) => {
 
-    if (xp > 1000) return "Max Level";
+    if (xp >= 1000) return "Max Level";
 
     return ('Level ' + Math.floor(xp / 100))
 }
 
 const calculateMaxLevelBorder = ( xp: number) => {
 
-    if (xp > 1000) return "4px";
+    if (xp >= 1000) return "4px";
 
     return '0px'
 }
 
 const calculateMaxLevel = ( xp: number) => {
 
-    if (xp > 1000) return 100;
+    if (xp >= 1000) return 100;
 
     return xp % 100
 }
 
-const XPBar = () => {
-    const [XP, setXP] = useState(0)
-
-
-    useEffect(() => {
-        const fetchXP = async () => {
-
-            let totalXP: number = await getXPFromDatabase(readUID() as string)
-
-            // Set the XP bar state
-            setXP(totalXP)
-        }
-
-        fetchXP()
-
-    }, [])
+const XPBar = (XP: any) => {
 
     return (
         <Box bg={useColorModeValue('rgba(37,38,38,1)', '')} p={4} rounded={'2xl'}>
             <div className="text-white flex justify-center text-center">
                 <Box
                     fontSize="4xl"
-                    color={calculateColor(XP)}
+                    color={calculateColor(XP.xp)}
                     transition="color 0.2s"
-                    border={calculateMaxLevelBorder(XP)}
-                    borderColor={calculateColor(XP)}
+                    border={calculateMaxLevelBorder(XP.xp)}
+                    borderColor={calculateColor(XP.xp)}
                     p={2}
-                    mb={4}
+                    mb={6}
                     rounded={'3xl'}
 
                     // sx={{
@@ -94,7 +77,7 @@ const XPBar = () => {
                     //     animation: "pulsateOpacity 2s infinite",
                     // }}
                 >
-                    {calculateLevel(XP)}
+                    {calculateLevel(XP.xp)}
                 </Box>
             </div>
             <Flex w={"100%"} justifyContent={"center"} mt={2}>
@@ -106,7 +89,7 @@ const XPBar = () => {
                         },
                     }}
                     colorScheme="pink"
-                    value={calculateMaxLevel(XP)}
+                    value={calculateMaxLevel(XP.xp)}
                     w={700}
                     hasStripe
                     isAnimated

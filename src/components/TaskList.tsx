@@ -220,6 +220,7 @@ const TaskList = () => {
       })
 
       setXpBar(difficulty)
+      console.log('completed task')
     } catch (error) {
       console.error("Error updating task status in Firestore:", error)
     }
@@ -339,7 +340,7 @@ const TaskList = () => {
     return () => {
       // Cleanup logic if needed (e.g., unsubscribing from real-time updates)
     }
-  }, []) // The empty dependency array ensures this effect runs once on mount
+  }, [XP]) // The empty dependency array ensures this effect runs once on mount
 
 
   const editTask = async (
@@ -628,7 +629,7 @@ const TaskList = () => {
               .map((task: any) => (
                 <>
                   <VStack key={task.index} pb={2}>
-                    <Flex w={"100%"} flexDir={"row"} my={4}>
+                    <Flex w={"100%"} flexDir={"row"} my={2}>
                       <HStack>
                         <DifficultyCircle color={task.difficulty} />
                         <Container
@@ -646,10 +647,9 @@ const TaskList = () => {
                       textAlign={"left"}
                       maxW={"100%"}
                       wordBreak={"break-all"}
-                      mt={2}
                     >
                       {task.description}
-                    <VStack pt={2}>
+                    <VStack pt={4}>
                       <Box>Start: {task.startDate}</Box>
                       <Box>Complete: {task.endDate}</Box>
                     </VStack>
@@ -686,7 +686,7 @@ const TaskList = () => {
           p={8}
           maxW={{ base: "100%", lg: "70%" }}
         >
-          <XPBar />
+          <XPBar xp={XP} />
           <Divider borderWidth={"1px"} mt={8} borderColor={useColorModeValue("black", "")} />
           <Text fontWeight="700" fontSize="30" textAlign="center" my={4}>
             Tasks
