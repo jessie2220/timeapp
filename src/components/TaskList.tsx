@@ -75,6 +75,7 @@ const TaskList = () => {
   const descriptionLengthMax = 250
   // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+
   const addTask = async (event: any) => {
     event.preventDefault()
 
@@ -97,6 +98,8 @@ const TaskList = () => {
       description.length < descriptionLengthMax
     ) {
       try {
+        const date = new Date().toLocaleString('en-GB')
+
         // Access the 'tasks' collection in Firestore
         const tasksCollection = collection(firestoreDB, "tasks")
 
@@ -108,6 +111,8 @@ const TaskList = () => {
           description,
           status: "pending",
           username: readEmail(),
+          startDate: date,
+          endDate: "",
         })
         setDisplayAlert(false)
 
@@ -123,6 +128,8 @@ const TaskList = () => {
             id: setID,
             description,
             status: "pending",
+            startDate: date,
+            endDate: "",
           },
         ])
       } catch (error) {
@@ -177,6 +184,7 @@ const TaskList = () => {
     id: any,
   ) => {
     try {
+      const endDate = new Date().toLocaleString('en-GB')
       // Update the task status to "complete" in Firestore
       const tasksCollection = collection(firestoreDB, "tasks") // Make sure it matches your Firestore collection name
       const taskQuery = query(
@@ -192,7 +200,7 @@ const TaskList = () => {
         const taskRef = doc(firestoreDB, "tasks", taskDoc.id)
 
         // Update the task status to "complete"
-        await updateDoc(taskRef, { status: "complete" })
+        await updateDoc(taskRef, { status: "complete", endDate: endDate })
       } else {
         console.log("Task not found in Firestore")
       }
@@ -204,6 +212,7 @@ const TaskList = () => {
             return {
               ...task,
               status: "complete",
+              endDate: endDate,
             }
           }
           return task
@@ -500,8 +509,18 @@ const TaskList = () => {
     taskListItems.length > 0 ? (
       <Tabs mt="2%" w="100%" align="center" isFitted>
         <TabList>
-          <Tab>Active</Tab>
-          <Tab>Completed</Tab>
+          <Tab
+            _hover={{
+              borderColor: "blue.500"
+            }}>
+            Active
+          </Tab>
+          <Tab
+            _hover={{
+              borderColor: "blue.500"
+            }}>
+            Complete
+          </Tab>
           {/* <Tab>Expired</Tab> */}
         </TabList>
         {/* <TabPanels> */}
@@ -551,6 +570,9 @@ const TaskList = () => {
                           aria-label={""}
                           bg={"green.600"}
                           icon={<CheckIcon />}
+                          _hover={{
+                            bg: "green.500"
+                          }}
                           onClick={() =>
                             completeTask(
                               task.input,
@@ -559,20 +581,28 @@ const TaskList = () => {
                             )
                           }
                         ></IconButton>
-                        <Divider orientation="vertical" />
+
+                        <Divider orientation="vertical" borderColor={useColorModeValue("black", "")} />
 
                         <IconButton
                           bg={"yellow.500"}
+                          _hover={{
+                            bg: "yellow.400"
+                          }}
                           icon={<EditIcon />}
                           aria-label={""}
                           onClick={() => addAndEdit(task.id)}
                         />
                         <EditModal />
 
-                        <Divider orientation="vertical" />
+                        <Divider orientation="vertical" borderColor={useColorModeValue("black", "")} />
+
                         <IconButton
                           aria-label={""}
                           bg={"red.600"}
+                          _hover={{
+                            bg: "red.500"
+                          }}
                           icon={<DeleteIcon />}
                           onClick={() => 
                             deleteTask(
@@ -584,9 +614,11 @@ const TaskList = () => {
                           }
                         ></IconButton>
                       </HStack>
+
+                      {task.startDate}
                     </Container>
                   </Flex>
-                  <Divider />
+                  <Divider borderColor={useColorModeValue("black", "")} />
                 </VStack>
               ))}
           </TabPanel>
@@ -595,7 +627,7 @@ const TaskList = () => {
               .filter((task: any) => task.status === "complete")
               .map((task: any) => (
                 <>
-                  <VStack key={task.index}>
+                  <VStack key={task.index} pb={2}>
                     <Flex w={"100%"} flexDir={"row"} my={4}>
                       <HStack>
                         <DifficultyCircle color={task.difficulty} />
@@ -617,9 +649,13 @@ const TaskList = () => {
                       mt={2}
                     >
                       {task.description}
+                    <VStack pt={2}>
+                      <Box>Start: {task.startDate}</Box>
+                      <Box>Complete: {task.endDate}</Box>
+                    </VStack>
                     </Container>
                   </VStack>
-                  <Divider />
+                  <Divider borderColor={useColorModeValue("black", "")} />
                 </>
               ))}
           </TabPanel>
@@ -632,7 +668,8 @@ const TaskList = () => {
   return (
     <Box
       pb={'200px'}
-      bg={{ base: useColorModeValue("rgba(255,255,255,0.3)", "rgba(0,0,0,0.6)"), lg: useColorModeValue("rgba(0,0,0,0)", "rgba(0,0,0,0)")}}
+      bg={{ base: useColorModeValue("rgba(255,255,255,0.4)", "rgba(0,0,0,0.7)"), lg: useColorModeValue("rgba(0,0,0,0)", "rgba(0,0,0,0)")}}
+      fontWeight={'500'}
       >
       <Flex
         w="100%"
@@ -644,17 +681,17 @@ const TaskList = () => {
       >
         <Container
           w="100%"
-          bg={{ base: '', lg: useColorModeValue("rgba(255,255,255,0.3)", "rgba(0,0,0,0.6)")}}
+          bg={{ base: '', lg: useColorModeValue("rgba(255,255,255,0.6)", "rgba(0,0,0,0.8)")}}
           rounded={{ base: "", lg: "3xl" }}
           p={8}
           maxW={{ base: "100%", lg: "70%" }}
         >
           <XPBar />
-          <Divider borderWidth={"1px"} mt={8}/>
+          <Divider borderWidth={"1px"} mt={8} borderColor={useColorModeValue("black", "")} />
           <Text fontWeight="700" fontSize="30" textAlign="center" my={4}>
             Tasks
           </Text>
-          <Divider borderWidth={"1px"} />
+          {/* <Divider borderWidth={"1px"} borderColor={useColorModeValue("black", "")} /> */}
           <form onSubmit={addTask}>
             <FormControl>
               <Flex
@@ -668,13 +705,13 @@ const TaskList = () => {
                     value={radioDifficulty}
                   >
                     <Stack spacing={{ base: 10, md: 20}} direction="row" my={2}>
-                      <Radio colorScheme="green" value="green.500">
+                      <Radio colorScheme="green" value="green.500" borderColor={useColorModeValue("black", "gray")} _hover={{ borderColor: useColorModeValue("blue.400", "blue.400") }}>
                         Easy
                       </Radio>
-                      <Radio colorScheme="orange" value="orange.500">
+                      <Radio colorScheme="orange" value="orange.500" borderColor={useColorModeValue("black", "gray")} _hover={{ borderColor: useColorModeValue("blue.400", "blue.400") }}>
                         Medium
                       </Radio>
-                      <Radio colorScheme="red" value="red.500">
+                      <Radio colorScheme="red" value="red.500" borderColor={useColorModeValue("black", "gray")} _hover={{ borderColor: useColorModeValue("blue.400", "blue.400") }}>
                         Hard
                       </Radio>
                     </Stack>
@@ -690,12 +727,18 @@ const TaskList = () => {
                   color={useColorModeValue("bgDark.900", "white")}
                   _placeholder={{ color: "inherit" }}
                   onChange={(event) => setInput(event.target.value)}
+                  borderColor={useColorModeValue("black", "gray")}
+                  borderWidth={'1px'}
+                  _hover={{ borderColor: useColorModeValue("blue.400", "blue.400") }}
                 />
                 <Button
                   sx={{ width: "90px" }}
                   ml="5"
                   bg="blue.400"
                   onClick={addTask}
+                  _hover={{
+                    bg: "blue.500"
+                  }}
                 >
                   {loading ? (
                     <CircularProgress
@@ -711,6 +754,9 @@ const TaskList = () => {
               <Textarea
                 mt={4}
                 color={useColorModeValue("bgDark.900", "white")}
+                borderColor={useColorModeValue("black", "gray")}
+                _hover={{ borderColor: useColorModeValue("blue.400", "blue.400") }}
+                borderWidth={'1px'}
                 _placeholder={{ color: "inherit" }}
                 placeholder="Description (optional)"
                 resize={"none"}
@@ -721,7 +767,7 @@ const TaskList = () => {
               {triggerDisplayAlert(alertText)}
             </FormControl>
           </form>
-          <Divider borderWidth={"1px"} mt={4} />
+          {/* <Divider borderWidth={"1px"} mt={6} borderColor={useColorModeValue("black", "")} /> */}
           {taskList()}
         </Container>
       </Flex>

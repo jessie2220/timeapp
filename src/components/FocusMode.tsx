@@ -21,9 +21,17 @@ import {
   AlertDialogBody,
   AlertDialogFooter,
   Text,
+  Popover,
+  PopoverTrigger,
+  PopoverContent,
+  PopoverArrow,
+  PopoverBody,
+  IconButton,
+  VStack,
 } from "@chakra-ui/react"
 import { getXPFromDatabase, updateXPAmount } from "../config/config"
 import { readDisplayName, readEmail, readImageURL, readUID } from "../functions"
+import { InfoIcon } from "@chakra-ui/icons"
 
 const CircleTimer = ({
   timerValue,
@@ -90,13 +98,13 @@ const CircleTimer = ({
           value={(timerValue - timeLeft) * (100 / timerValue)}
           color="purple.400"
           trackColor= {useColorModeValue('bgDark.900', 'white')}
-          size= "400px"
+          size= "350px"
           thickness="4px"
         >
           <CircularProgressLabel color={useColorModeValue('bgDark.900', 'white')}>{secondsToMinutes(timeLeft)}</CircularProgressLabel>
         </CircularProgress>
       </Box>
-      <Stack justifyContent="center" direction={{base: "column", sm: "row"}} my={8}>
+      <Stack justifyContent="center" direction="row" my={8}>
         {!isRunning ?
 
           timeLeft ?
@@ -191,7 +199,7 @@ const FocusMode = () => {
 
   return (
     <Box
-      bg={{ base: useColorModeValue("rgba(255,255,255,0.3)", "rgba(0,0,0,0.6)"), lg: useColorModeValue("rgba(0,0,0,0)", "rgba(0,0,0,0)") }}
+      bg={{ base: useColorModeValue("rgba(255,255,255,0.3)", "rgba(0,0,0,0.7)"), lg: useColorModeValue("rgba(0,0,0,0)", "rgba(0,0,0,0)") }}
     >
       <Flex
         w="100%"
@@ -202,18 +210,39 @@ const FocusMode = () => {
       >
         <Container
           w="100%"
-          bg={{ base: '', lg: useColorModeValue("rgba(255,255,255,0.3)", "rgba(0,0,0,0.6)") }}
+          bg={{ base: '', lg: useColorModeValue("rgba(255,255,255,0.6)", "rgba(0,0,0,0.8)") }}
           rounded={{ base: "", lg: "3xl" }}
           pb={16}
           maxW={{ base: "100%", lg: "50%" }}
         >
-          <div className="mx-auto text-center flex flex-col justify-center text-white">
+          {/* <div className="mx-auto text-center flex flex-col justify-center text-white"> */}
+          <VStack>
 
-            <Text fontWeight="700" fontSize="30" textAlign="center" color={useColorModeValue("bgDark.900", "bgLight.100")} my={4}>
+            <Text fontWeight="700" fontSize="30" textAlign="center" color={useColorModeValue("bgDark.900", "bgLight.100")} mt={8} mb={2}>
               Focus Mode
             </Text>
 
-            <p>Info icon</p>
+            <Popover isLazy>
+              <PopoverTrigger>
+                <IconButton
+                  aria-label={""}
+                  size='lg'
+                  icon={<InfoIcon />}
+                  maxWidth={'40px'}
+                  color={useColorModeValue("blue.400", "blue.200")}
+                  fontSize={'20px'}
+                  variant={'link'}
+                  isRound
+                  _hover={{
+                    color: useColorModeValue("blue.500", "blue.300")
+                  }}
+                />
+              </PopoverTrigger>
+              <PopoverContent bg={useColorModeValue("bgLight.100", "bgDark.900")} color={useColorModeValue("bgDark.900", "bgLight.100")}>
+                <PopoverArrow bg={useColorModeValue("bgLight.100", "bgDark.900")} />
+                <PopoverBody textAlign={'center'}>Earn XP equal to the amount of time spent focusing!</PopoverBody>
+              </PopoverContent>
+            </Popover>
 
             <CircleTimer
               timerValue={value * 60}
@@ -249,7 +278,7 @@ const FocusMode = () => {
                   <SliderMark value={90} mt={6} ml={-2.5} fontSize={"sm"}>
                     90
                   </SliderMark>
-                  <SliderTrack bgColor={useColorModeValue("bgDark.900", "")}>
+                  <SliderTrack bgColor={useColorModeValue("bgDark.900", "white")}>
                     <SliderFilledTrack />
                   </SliderTrack>
                   <SliderThumb fontSize="sm" boxSize="32px" children={value} color={useColorModeValue('textDark.900', 'bgDark.900')} bg={useColorModeValue('bgDark.900', 'white')} />
@@ -258,7 +287,7 @@ const FocusMode = () => {
             </Container>
             <AlertBox />
             {/* <div className="h-screen"></div> */}
-          </div>
+          </VStack>
         </Container>
       </Flex>
     </Box>

@@ -199,6 +199,7 @@ const ChakraNavbarLogged = (props: any) => {
                                     <Avatar
                                         size={'sm'}
                                         src={readImageURL()}
+                                        referrerPolicy='no-referrer'
                                     />
                                 </MenuButton>
                                 <MenuList alignItems={'center'} bg={useColorModeValue('bgLight.100', 'bgDark.900')}>
@@ -207,6 +208,7 @@ const ChakraNavbarLogged = (props: any) => {
                                         <Avatar
                                             size={'2xl'}
                                             src={readImageURL()}
+                                            referrerPolicy='no-referrer'
                                         />
                                     </Center>
                                     <br />
